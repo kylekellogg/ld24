@@ -1,6 +1,13 @@
 package com.kylekellogg.ld24.model
 {
+	import com.kylekellogg.ld24.controller.SoundManager;
+	
 	import flash.display.Bitmap;
+	import flash.events.Event;
+	import flash.media.Sound;
+	import flash.media.SoundChannel;
+	import flash.net.URLRequest;
+	import flash.utils.Dictionary;
 
 	public class Assets
 	{
@@ -18,6 +25,12 @@ package com.kylekellogg.ld24.model
 		protected var _Red:Class;
 		public var red:Bitmap;
 		
+		[Embed(source='assets/snd/main_loop.mp3')]
+		protected var _MainLoop:Class;
+		public var mainLoop:Sound;
+		
+		public var sounds:Dictionary;
+		
 		public function Assets()
 		{
 			if ( instance )
@@ -26,6 +39,11 @@ package com.kylekellogg.ld24.model
 			blue = new _Blue() as Bitmap;
 			green = new _Green() as Bitmap;
 			red = new _Red() as Bitmap;
+			
+			mainLoop = new _MainLoop() as Sound;
+			
+			sounds = new Dictionary();
+			sounds[ SoundManager.MAIN_LOOP ] = mainLoop;
 		}
 	}
 }
