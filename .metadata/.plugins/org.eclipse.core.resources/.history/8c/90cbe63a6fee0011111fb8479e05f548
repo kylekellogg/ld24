@@ -1,0 +1,12 @@
+package com.kylekellogg.ld24.model
+{
+	public class BackgroundCollectionModel
+	{
+		public var id:int = 0;
+		public var backgrounds:Array = [];
+		
+		public function BackgroundCollectionModel()
+		{
+		}
+	}
+}
