@@ -2,6 +2,7 @@ package
 {
 	import com.kylekellogg.ld24.controller.BackgroundController;
 	import com.kylekellogg.ld24.controller.PlatformController;
+	import com.kylekellogg.ld24.view.Floor;
 	
 	import starling.display.Sprite;
 
@@ -9,6 +10,8 @@ package
 	{
 		protected var _backgroundController:BackgroundController;
 		protected var _platformController:PlatformController;
+		
+		protected var _floor:Floor;
 		
 		public function Game()
 		{
@@ -24,6 +27,11 @@ package
 			
 			_platformController = new PlatformController();
 			addChild( _platformController );
+			
+			_floor = new Floor();
+			_floor.x = 0;
+			_floor.y = 590;
+			addChild( _floor );
 		}
 	}
 }
