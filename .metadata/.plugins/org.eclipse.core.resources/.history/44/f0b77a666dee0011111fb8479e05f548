@@ -1,0 +1,14 @@
+package
+{
+	import flash.display.Sprite;
+	
+	public class LD24 extends Sprite
+	{
+		
+		
+		public function LD24()
+		{
+			
+		}
+	}
+}
