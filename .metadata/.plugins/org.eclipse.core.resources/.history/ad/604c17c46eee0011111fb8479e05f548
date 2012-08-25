@@ -1,9 +1,0 @@
-package com.kylekellogg.ld24.model
-{
-	public class BackgroundModel
-	{
-		public function BackgroundModel()
-		{
-		}
-	}
-}

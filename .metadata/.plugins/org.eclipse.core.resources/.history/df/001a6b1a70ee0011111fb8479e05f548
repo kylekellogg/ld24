@@ -1,9 +1,0 @@
-package com.kylekellogg.ld24.controller
-{
-	public class BackgroundController
-	{
-		public function BackgroundController()
-		{
-		}
-	}
-}
