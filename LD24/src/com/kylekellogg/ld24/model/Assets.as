@@ -1,6 +1,6 @@
 package com.kylekellogg.ld24.model
 {
-	import com.kylekellogg.ld24.controller.SoundManager;
+	import com.kylekellogg.ld24.controller.SoundController;
 	
 	import flash.display.Bitmap;
 	
@@ -62,7 +62,7 @@ package com.kylekellogg.ld24.model
 			mainLoop = new _MainLoop() as Sound;
 			
 			sounds = new Dictionary();
-			sounds[ SoundManager.MAIN_LOOP ] = mainLoop;
+			sounds[ SoundController.MAIN_LOOP ] = mainLoop;
 		}
 		
 		public function texture( name:String ):Texture
