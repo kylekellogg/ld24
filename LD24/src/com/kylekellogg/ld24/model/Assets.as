@@ -3,6 +3,9 @@ package com.kylekellogg.ld24.model
 	import com.kylekellogg.ld24.controller.SoundManager;
 	
 	import flash.display.Bitmap;
+	
+	import starling.textures.Texture;
+	import starling.textures.TextureAtlas;
 	import flash.events.Event;
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
@@ -25,6 +28,18 @@ package com.kylekellogg.ld24.model
 		protected var _Red:Class;
 		public var red:Bitmap;
 		
+		[Embed(source='assets/platform.png')]
+		protected var _Platform:Class;
+		public var platform:Bitmap;
+		
+		[Embed(source='assets/spritesheet.xml', mimeType='application/octet-stream')]
+		protected var _SpritesheetData:Class;
+		
+		[Embed(source='assets/spritesheet.png')]
+		protected var _Spritesheet:Class;
+		
+		protected var _atlas:TextureAtlas;
+		
 		[Embed(source='assets/snd/main_loop.mp3')]
 		protected var _MainLoop:Class;
 		public var mainLoop:Sound;
@@ -40,10 +55,24 @@ package com.kylekellogg.ld24.model
 			green = new _Green() as Bitmap;
 			red = new _Red() as Bitmap;
 			
+			platform = new _Platform() as Bitmap;
+			
+			_atlas = new TextureAtlas( Texture.fromBitmap( new _Spritesheet() as Bitmap ), XML( new _SpritesheetData() ) );
+			
 			mainLoop = new _MainLoop() as Sound;
 			
 			sounds = new Dictionary();
 			sounds[ SoundManager.MAIN_LOOP ] = mainLoop;
+		}
+		
+		public function texture( name:String ):Texture
+		{
+			return _atlas.getTexture( name );
+		}
+		
+		public function textures( name:String ):Vector.<Texture>
+		{
+			return _atlas.getTextures( name );
 		}
 	}
 }
