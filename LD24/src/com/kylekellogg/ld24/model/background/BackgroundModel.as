@@ -1,5 +1,7 @@
-package com.kylekellogg.ld24.model
+package com.kylekellogg.ld24.model.background
 {
+	import com.kylekellogg.ld24.model.Assets;
+
 	public class BackgroundModel
 	{
 		public var collections:Vector.<BackgroundCollectionModel>;

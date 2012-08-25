@@ -18,6 +18,10 @@ package com.kylekellogg.ld24.model
 		protected var _Red:Class;
 		public var red:Bitmap;
 		
+		[Embed(source='assets/platform.png')]
+		protected var _Platform:Class;
+		public var platform:Bitmap;
+		
 		public function Assets()
 		{
 			if ( instance )
@@ -26,6 +30,8 @@ package com.kylekellogg.ld24.model
 			blue = new _Blue() as Bitmap;
 			green = new _Green() as Bitmap;
 			red = new _Red() as Bitmap;
+			
+			platform = new _Platform() as Bitmap;
 		}
 	}
 }

@@ -1,7 +1,7 @@
 package com.kylekellogg.ld24.controller
 {
-	import com.kylekellogg.ld24.model.BackgroundCollectionModel;
-	import com.kylekellogg.ld24.model.BackgroundModel;
+	import com.kylekellogg.ld24.model.background.BackgroundCollectionModel;
+	import com.kylekellogg.ld24.model.background.BackgroundModel;
 	import com.kylekellogg.ld24.view.Background;
 	
 	import starling.display.DisplayObjectContainer;
