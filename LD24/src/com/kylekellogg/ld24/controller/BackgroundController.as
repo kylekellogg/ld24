@@ -7,21 +7,20 @@ package com.kylekellogg.ld24.controller
 	import starling.display.DisplayObjectContainer;
 	import starling.events.Event;
 
-	public class BackgroundController extends DisplayObjectContainer
+	public class BackgroundController extends Controller
 	{
 		protected var _model:BackgroundModel;
 		protected var _current:Vector.<Background>;
 		
 		public function BackgroundController()
 		{
+			super();
 			_model = new BackgroundModel();
-			
-			addEventListener( Event.ADDED_TO_STAGE, handleAddedToStage );
 		}
 		
-		protected function handleAddedToStage( e:Event ):void
+		override protected function handleAddedToStage( e:Event ):void
 		{
-			removeEventListener( Event.ADDED_TO_STAGE, handleAddedToStage );
+			super.handleAddedToStage( e );
 			
 			//	Initialize backgrounds
 			_model.init();
