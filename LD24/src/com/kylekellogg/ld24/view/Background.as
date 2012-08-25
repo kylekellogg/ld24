@@ -4,23 +4,20 @@ package com.kylekellogg.ld24.view
 	
 	import starling.display.Image;
 	import starling.display.Sprite;
-	import starling.textures.Texture;
 	
 	public class Background extends Sprite
 	{
-		protected var _image:Image;
+		public var flaggedForDisposal:Boolean = false;
 		
 		public function Background()
 		{
 			super();
-			
-			_image = new Image( new Texture() );
-			addChild( _image );
 		}
 		
 		public function set image( bmp:Bitmap ):void
 		{
-			_image = Image.fromBitmap( bmp );
+			removeChildren();
+			addChild( Image.fromBitmap( bmp ) );
 		}
 	}
 }
