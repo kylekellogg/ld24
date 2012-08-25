@@ -1,6 +1,9 @@
 package com.kylekellogg.ld24.model
 {
 	import flash.display.Bitmap;
+	
+	import starling.textures.Texture;
+	import starling.textures.TextureAtlas;
 
 	public class Assets
 	{
@@ -22,6 +25,14 @@ package com.kylekellogg.ld24.model
 		protected var _Platform:Class;
 		public var platform:Bitmap;
 		
+		[Embed(source='assets/spritesheet.xml', mimeType='application/octet-stream')]
+		protected var _SpritesheetData:Class;
+		
+		[Embed(source='assets/spritesheet.png')]
+		protected var _Spritesheet:Class;
+		
+		protected var _atlas:TextureAtlas;
+		
 		public function Assets()
 		{
 			if ( instance )
@@ -32,6 +43,18 @@ package com.kylekellogg.ld24.model
 			red = new _Red() as Bitmap;
 			
 			platform = new _Platform() as Bitmap;
+			
+			_atlas = new TextureAtlas( Texture.fromBitmap( new _Spritesheet() as Bitmap ), XML( new _SpritesheetData() ) );
+		}
+		
+		public function texture( name:String ):Texture
+		{
+			return _atlas.getTexture( name );
+		}
+		
+		public function textures( name:String ):Vector.<Texture>
+		{
+			return _atlas.getTextures( name );
 		}
 	}
 }
