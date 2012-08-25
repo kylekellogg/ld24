@@ -7,12 +7,12 @@ package com.kylekellogg.ld24.controller
 	
 	import starling.events.EventDispatcher;
 	
-	public class SoundManager extends EventDispatcher
+	public class SoundController extends EventDispatcher
 	{
 		//	IDs of sounds
 		public static const MAIN_LOOP:int = 0;
 		
-		public function SoundManager()
+		public function SoundController()
 		{
 			super();
 			

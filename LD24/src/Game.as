@@ -3,7 +3,7 @@ package
 	import com.kylekellogg.ld24.controller.BackgroundController;
 	import com.kylekellogg.ld24.controller.PlatformController;
 	import com.kylekellogg.ld24.view.Floor;
-	import com.kylekellogg.ld24.controller.SoundManager;
+	import com.kylekellogg.ld24.controller.SoundController;
 	import com.kylekellogg.ld24.events.SoundEvent;
 	
 	import starling.display.Sprite;
@@ -12,7 +12,7 @@ package
 	{
 		protected var _backgroundController:BackgroundController;
 		protected var _platformController:PlatformController;
-		protected var _soundController:SoundManager;
+		protected var _soundController:SoundController;
 		
 		protected var _floor:Floor;
 		
@@ -36,10 +36,10 @@ package
 			_floor.y = 590;
 			addChild( _floor );
 			
-			_soundController = new SoundManager();
+			_soundController = new SoundController();
 			//	Testing
 			var evt:SoundEvent = new SoundEvent( SoundEvent.FIRE_SOUND );
-			evt.id = SoundManager.MAIN_LOOP;
+			evt.id = SoundController.MAIN_LOOP;
 			_soundController.dispatchEvent( evt );
 			
 			addEventListener( SoundEvent.FIRE_SOUND, handleFireSound );
