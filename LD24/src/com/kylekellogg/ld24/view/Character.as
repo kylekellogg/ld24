@@ -81,6 +81,7 @@ package com.kylekellogg.ld24.view
 					break;
 			}
 			
+			MAX_JUMP_HEIGHT = stage.stageHeight - (this.height * 2.5)
 			hasEvolved = true;
 		}
 		
