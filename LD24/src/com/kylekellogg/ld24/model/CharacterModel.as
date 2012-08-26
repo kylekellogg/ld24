@@ -90,15 +90,15 @@ package com.kylekellogg.ld24.model
 			{
 				this.level = CharacterModel.DELUXE;
 			}
-			else if ( _beer >= 300 && this.level != CharacterModel.STANDARD )
+			else if ( _beer >= 300 && _beer < 600 && this.level != CharacterModel.STANDARD )
 			{
 				this.level = CharacterModel.STANDARD;
 			}
-			else if ( _beer >= 100 && this.level != CharacterModel.MINI )
+			else if ( _beer >= 100 && _beer < 300 && this.level != CharacterModel.MINI )
 			{
 				this.level = CharacterModel.MINI;
 			}
-			else if ( this.level != CharacterModel.COOLER )
+			else if ( _beer < 100 && this.level != CharacterModel.COOLER )
 			{
 				this.level = CharacterModel.COOLER;
 			}

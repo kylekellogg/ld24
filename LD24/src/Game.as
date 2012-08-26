@@ -17,6 +17,9 @@ package
 	import starling.events.Event;
 	import starling.events.KeyboardEvent;
 	import starling.events.TouchEvent;
+	import starling.text.TextField;
+	import starling.utils.HAlign;
+	import starling.utils.VAlign;
 
 	public class Game extends Sprite
 	{
@@ -27,6 +30,7 @@ package
 		
 		protected var _floor:Floor;
 		protected var _character:Character;
+		protected var _beerLabel:TextField;
 		
 		protected var debugging:Boolean = true;
 		private var _weaponsController:WeaponsController;
@@ -71,6 +75,11 @@ package
 		{
 			removeEventListener( Event.ADDED_TO_STAGE, handleAddedToStage );
 			
+			_beerLabel = new TextField(200, 50, "Beer: " + CharacterModel.instance.beer, "Helvetica", 24, 0, true);
+			_beerLabel.hAlign = HAlign.LEFT;
+			_beerLabel.x = 20;
+			addChild( _beerLabel );
+			
 			_character = new Character();
 			_character.x = 25;
 			_character.y = (stage.stageHeight - _character.height) - 50;
@@ -78,6 +87,12 @@ package
 			
 			stage.addEventListener( KeyboardEvent.KEY_DOWN, handleKeyboardDown);
 			stage.addEventListener( KeyboardEvent.KEY_UP, handleKeyboardUp);
+			addEventListener( Event.ENTER_FRAME, handleEnterFrame);
+		}
+		
+		protected function handleEnterFrame( e:Event ):void
+		{
+			_beerLabel.text = "Beer: " + CharacterModel.instance.beer;
 		}
 		
 		protected function handleKeyboardUp( e:KeyboardEvent ):void

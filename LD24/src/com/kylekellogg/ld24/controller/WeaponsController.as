@@ -75,7 +75,6 @@ package com.kylekellogg.ld24.controller
 			_fired.push( bullet );
 			
 			if ( _isDeluxe ) {
-				trace('here');
 				stage.addChild(bullet);
 			} else {
 				addChild(bullet);

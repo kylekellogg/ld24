@@ -62,8 +62,6 @@ package com.kylekellogg.ld24.view
 				case CharacterModel.DELUXE:
 					gunOffsetY = 0;
 					setNewCharacterStates(null, DELUXE);
-					var evt:CharacterEvent = new CharacterEvent( CharacterEvent.EVOLVED_DELUXE, true );
-					dispatchEvent( evt );
 					break;
 				case CharacterModel.STANDARD:
 					setNewCharacterStates(STANDARD_OPEN, STANDARD_CLOSED);
@@ -121,12 +119,17 @@ package com.kylekellogg.ld24.view
 				image = _closed;
 			}
 			
-			gun.x = (this.x + (this.width >> 1)) + 20;
+			gun.x = (this.x + (this.width >> 1)) + 10;
 			gun.y = (this.y + (this.height >> 1)) - gunOffsetY;
 		}
 		
 		protected function setNewCharacterStates(open:String, closed:String):void
 		{
+			if (_open)
+				_open.dispose();
+			if (_closed)
+				_closed.dispose();
+			
 			if ( open == null ) {
 				_open = _closed = new Image(Assets.instance.texture(closed));
 			} else {
