@@ -16,17 +16,21 @@ package com.kylekellogg.ld24.model
 	{
 		public static const instance:Assets = new Assets();
 		
-		[Embed(source='assets/blue.png')]
-		protected var _Blue:Class;
-		public var blue:Bitmap;
+		[Embed(source='assets/bg_beach_1.png')]
+		protected var _BG1:Class;
+		public var bg1:Bitmap;
 		
-		[Embed(source='assets/green.png')]
-		protected var _Green:Class;
-		public var green:Bitmap;
+		[Embed(source='assets/bg_beach_2.png')]
+		protected var _BG2:Class;
+		public var bg2:Bitmap;
 		
-		[Embed(source='assets/red.png')]
-		protected var _Red:Class;
-		public var red:Bitmap;
+		[Embed(source='assets/bg_beach_3.png')]
+		protected var _BG3:Class;
+		public var bg3:Bitmap;
+		
+		[Embed(source='assets/bg_beach_4.png')]
+		protected var _BG4:Class;
+		public var bg4:Bitmap;
 		
 		[Embed(source='assets/platform.png')]
 		protected var _Platform:Class;
@@ -61,9 +65,10 @@ package com.kylekellogg.ld24.model
 			if ( instance )
 				throw new Error( 'Assets already exists. Try grabbing it from Assets.instance.' );
 			
-			blue = new _Blue() as Bitmap;
-			green = new _Green() as Bitmap;
-			red = new _Red() as Bitmap;
+			bg1 = new _BG1() as Bitmap;
+			bg2 = new _BG2() as Bitmap;
+			bg3 = new _BG3() as Bitmap;
+			bg4 = new _BG4() as Bitmap;
 			
 			platform = new _Platform() as Bitmap;
 			
@@ -76,6 +81,7 @@ package com.kylekellogg.ld24.model
 			sounds = new Dictionary();
 			sounds[ SoundController.MAIN_LOOP ] = mainLoop;
 			sounds[ SoundController.JUMP ] = jump;
+			sounds[ SoundController.SHOOT_ICE ] = shootIce;
 			
 			_cached = new Dictionary();
 		}

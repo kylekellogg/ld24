@@ -17,13 +17,17 @@ package com.kylekellogg.ld24.view
 		
 		private var MAX_JUMP_HEIGHT:Number;
 		
+		protected var _closed:Image;
+		protected var _open:Image;
 		
 		public function Character()
 		{
 			super();
 			CharacterModel.instance.character = this;
 			
-			image = new Image(Assets.instance.texture('cooler_closed'));
+			_open = new Image(Assets.instance.texture('cooler_open'));
+			_closed = new Image(Assets.instance.texture('cooler_closed'));
+			image = _closed;
 			addEventListener(Event.ADDED_TO_STAGE, handleAddedToStage);
 		}
 		
@@ -47,7 +51,7 @@ package com.kylekellogg.ld24.view
 		{
 			switch(CharacterModel.instance.level) {
 				case CharacterModel.COOLER:
-					image = new Image(Assets.instance.texture('cooler_closed'));
+					image = _closed;
 				default:
 					break;
 			}
@@ -79,10 +83,10 @@ package com.kylekellogg.ld24.view
 			
 			// For Shooting
 			if ( CharacterModel.instance.shooting ) {
-				image = new Image(Assets.instance.texture('cooler_open'));
+				image = _open;
 				CharacterModel.instance.gun.fire();
 			} else {
-				image = new Image(Assets.instance.texture('cooler_closed'));
+				image = _closed;
 			}
 		}
 		

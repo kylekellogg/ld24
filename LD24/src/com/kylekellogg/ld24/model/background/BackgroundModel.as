@@ -16,9 +16,10 @@ package com.kylekellogg.ld24.model.background
 		public function init():void
 		{
 			var col1:BackgroundCollectionModel = new BackgroundCollectionModel();
-			col1.add( Assets.instance.blue );
-			col1.add( Assets.instance.green );
-			col1.add( Assets.instance.red );
+			col1.add( Assets.instance.bg1 );
+			col1.add( Assets.instance.bg2 );
+			col1.add( Assets.instance.bg3 );
+			col1.add( Assets.instance.bg4 );
 			collections.push( col1 );
 		}
 		
