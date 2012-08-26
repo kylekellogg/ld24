@@ -129,7 +129,6 @@ package com.kylekellogg.ld24.view
 		{
 			removeChild(_image);
 			_image = value;
-			_image.alpha = 0.5;
 			addChild(_image);
 		}
 
