@@ -13,14 +13,16 @@ package com.kylekellogg.ld24.view
 	public class Character extends Sprite
 	{
 		private var _image:Image;
-		private var _vel:Number = 5;
+		private var _vel:Number = 10;
+		
+		private var MAX_JUMP_HEIGHT:Number;
+		
 		
 		public function Character()
 		{
 			super();
 			CharacterModel.instance.character = this;
 			image = new Image(Assets.instance.texture('cooler_closed'));
-			addChild(image);
 			addEventListener(Event.ADDED_TO_STAGE, handleAddedToStage);
 		}
 		
@@ -29,12 +31,15 @@ package com.kylekellogg.ld24.view
 			removeEventListener(Event.ADDED_TO_STAGE, handleAddedToStage);
 			addEventListener(Event.ENTER_FRAME, handleEnterFrame);
 			addEventListener(CharacterEvent.LEVEL_CHANGED, handleLevelChange);
+			
+			MAX_JUMP_HEIGHT = stage.stageHeight - (this.height * 2)
 		}
 		
 		protected function handleLevelChange( e:CharacterEvent ):void
 		{
 			switch(CharacterModel.instance.level) {
 				case CharacterModel.COOLER:
+					image = new Image(Assets.instance.texture('cooler_closed'));
 				default:
 					break;
 			}
@@ -42,21 +47,33 @@ package com.kylekellogg.ld24.view
 		
 		protected function handleEnterFrame( e:Event ):void
 		{
+			// For Jumping
 			if ( CharacterModel.instance.jumping ) 
 			{
-				if ( this.y > (stage.stageHeight - (this.height * 2))) {
-					this.y -= _vel;
+				if ( Math.floor(this.y) > MAX_JUMP_HEIGHT) {
+					var dy:Number = this.y - MAX_JUMP_HEIGHT;
+					var vy:Number = dy * 0.2;
+					this.y -= vy;
 				} else {
 					CharacterModel.instance.jumping = false; 
+					this.y = MAX_JUMP_HEIGHT;
 				}
 			} else {
 				if ( !CharacterModel.instance.landed ) {
 					if ( this.y < 475 ) {
 						this.y += _vel;
-					} else if ( this.y == 475 ) {
+					} else if ( this.y >= 475 ) {
+						this.y = 475;
 						CharacterModel.instance.landed = true;
 					}
 				}
+			}
+			
+			// For Shooting
+			if ( CharacterModel.instance.shooting ) {
+				image = new Image(Assets.instance.texture('cooler_open'));
+			} else {
+				image = new Image(Assets.instance.texture('cooler_closed'));
 			}
 		}
 		
@@ -67,7 +84,9 @@ package com.kylekellogg.ld24.view
 
 		public function set image(value:Image):void
 		{
+			removeChild(_image);
 			_image = value;
+			addChild(_image);
 		}
 
 	}

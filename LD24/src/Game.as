@@ -63,17 +63,34 @@ package
 			_character.y = (stage.stageHeight - _character.height) - ( _floor.height >> 1);
 			addChild(_character);
 			
-			stage.addEventListener( KeyboardEvent.KEY_DOWN, handleKeyboardEvent);
+			stage.addEventListener( KeyboardEvent.KEY_DOWN, handleKeyboardDown);
+			stage.addEventListener( KeyboardEvent.KEY_UP, handleKeyboardUp);
 		}
 		
-		protected function handleKeyboardEvent( e:KeyboardEvent ):void
+		protected function handleKeyboardUp( e:KeyboardEvent ):void
 		{
+			switch( e.keyCode )
+			{
+				case Keyboard.SPACE:
+					CharacterModel.instance.shooting = false;
+					break;
+			}
+		}
+		
+		protected function handleKeyboardDown( e:KeyboardEvent ):void
+		{
+			var evt:SoundEvent = new SoundEvent( SoundEvent.FIRE_SOUND );
 			switch( e.keyCode ) {
 				case Keyboard.SPACE:
+					CharacterModel.instance.shooting = true;
+						evt.id = SoundController.SHOOT_ICE; 
+						_soundController.dispatchEvent( evt );
+						// Don't break so that we can shoot and jump at the same time
+				case Keyboard.W:
+				case Keyboard.UP:
 					if ( CharacterModel.instance.landed ) {
 						CharacterModel.instance.jumping = true;
 						CharacterModel.instance.landed = false;
-						var evt:SoundEvent = new SoundEvent( SoundEvent.FIRE_SOUND );
 						evt.id = SoundController.JUMP; 
 						_soundController.dispatchEvent( evt );
 					}

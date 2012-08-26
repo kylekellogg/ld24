@@ -28,6 +28,7 @@ package com.kylekellogg.ld24.model
 		
 		protected var _jumping:Boolean = false;;
 		protected var _landed:Boolean = true;
+		private var _shooting:Boolean;
 		
 		public function CharacterModel()
 		{
@@ -133,6 +134,16 @@ package com.kylekellogg.ld24.model
 		public function set landed(value:Boolean):void
 		{
 			_landed = value;
+		}
+
+		public function get shooting():Boolean
+		{
+			return _shooting;
+		}
+
+		public function set shooting(value:Boolean):void
+		{
+			_shooting = value;
 		}
 
 

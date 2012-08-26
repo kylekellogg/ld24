@@ -48,6 +48,10 @@ package com.kylekellogg.ld24.model
 		protected var _Jump:Class;
 		public var jump:Sound;
 		
+		[Embed(source='assets/snd/shoot_ice.mp3')]
+		protected var _ShootIce:Class;
+		public var shootIce:Sound;
+		
 		public var sounds:Dictionary;
 		
 		public function Assets()
@@ -65,10 +69,12 @@ package com.kylekellogg.ld24.model
 			
 			mainLoop = new _MainLoop() as Sound;
 			jump = new _Jump() as Sound;
+			shootIce = new _ShootIce() as Sound;
 			
 			sounds = new Dictionary();
 			sounds[ SoundController.MAIN_LOOP ] = mainLoop;
 			sounds[ SoundController.JUMP ] = jump;
+			sounds[ SoundController.SHOOT_ICE ] = shootIce;
 		}
 		
 		public function texture( name:String ):Texture
