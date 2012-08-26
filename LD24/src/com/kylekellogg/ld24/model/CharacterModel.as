@@ -120,6 +120,7 @@ package com.kylekellogg.ld24.model
 		
 		public function evolve():void
 		{
+			// For debugging use only
 			var current:int = this.level;
 			switch(current) {
 				case COOLER:
