@@ -20,14 +20,20 @@ package com.kylekellogg.ld24.view
 		protected var _closed:Image;
 		protected var _open:Image;
 		
+		private static const COOLER_OPEN:String = "cooler_open";
+		private static const COOLER_CLOSED:String = "cooler_closed";
+		private static const MINI_OPEN:String = "mini_open";
+		private static const MINI_CLOSED:String = "mini_closed";
+		private static const STANDARD_OPEN:String = "standard_open";
+		private static const STANDARD_CLOSED:String = "standard_closed";
+		private static const DELUXE:String = "deluxe";
+		
 		public function Character()
 		{
 			super();
 			CharacterModel.instance.character = this;
 			
-			_open = new Image(Assets.instance.texture('cooler_open'));
-			_closed = new Image(Assets.instance.texture('cooler_closed'));
-			image = _closed;
+			setNewCharacterStates(COOLER_OPEN, COOLER_CLOSED);
 			addEventListener(Event.ADDED_TO_STAGE, handleAddedToStage);
 		}
 		
@@ -43,8 +49,18 @@ package com.kylekellogg.ld24.view
 		protected function handleLevelChange( e:CharacterEvent ):void
 		{
 			switch(CharacterModel.instance.level) {
+				case CharacterModel.DELUXE:
+					setNewCharacterStates(null, DELUXE);
+					break;
+				case CharacterModel.STANDARD:
+					setNewCharacterStates(STANDARD_OPEN, STANDARD_CLOSED);
+					break;
+				case CharacterModel.MINI:
+					setNewCharacterStates(MINI_OPEN, MINI_CLOSED);
+					break;
 				case CharacterModel.COOLER:
-					image = _closed;
+					setNewCharacterStates(COOLER_OPEN, COOLER_CLOSED);
+					break;
 				default:
 					break;
 			}
@@ -77,10 +93,21 @@ package com.kylekellogg.ld24.view
 			// For Shooting
 			if ( CharacterModel.instance.shooting ) {
 				image = _open;
-				CharacterModel.instance.gun.fire();
 			} else {
 				image = _closed;
 			}
+		}
+		
+		protected function setNewCharacterStates(open:String, closed:String):void
+		{
+			if ( open == null ) {
+				_open = _closed = new Image(Assets.instance.texture(closed));
+			} else {
+				_open = new Image(Assets.instance.texture(open));
+				_closed = new Image(Assets.instance.texture(closed));
+			}
+			
+			image = _closed;
 		}
 		
 		public function get image():Image

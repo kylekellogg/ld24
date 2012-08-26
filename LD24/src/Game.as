@@ -26,6 +26,8 @@ package
 		protected var _floor:Floor;
 		protected var _character:Character;
 		
+		protected var debugging:Boolean = true;
+		
 		public function Game()
 		{
 			super();
@@ -86,6 +88,12 @@ package
 		{
 			var evt:SoundEvent = new SoundEvent( SoundEvent.FIRE_SOUND );
 			switch( e.keyCode ) {
+				case Keyboard.E:
+					// Debugging only
+					if (debugging) {
+						CharacterModel.instance.evolve();
+					}
+					break;
 				case Keyboard.W:
 				case Keyboard.UP:
 					if ( CharacterModel.instance.landed ) {

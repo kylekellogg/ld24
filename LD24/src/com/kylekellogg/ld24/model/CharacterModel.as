@@ -2,9 +2,9 @@ package com.kylekellogg.ld24.model
 {
 	import com.kylekellogg.ld24.events.CharacterEvent;
 	import com.kylekellogg.ld24.view.Character;
+	import com.kylekellogg.ld24.view.Gun;
 	
 	import starling.events.EventDispatcher;
-	import com.kylekellogg.ld24.view.Gun;
 
 	public class CharacterModel extends EventDispatcher
 	{
@@ -115,6 +115,25 @@ package com.kylekellogg.ld24.model
 				{
 					dispatchEvent( evt );
 				}
+			}
+		}
+		
+		public function evolve():void
+		{
+			var current:int = this.level;
+			switch(current) {
+				case COOLER:
+					this.level = MINI;
+					break;
+				case MINI:
+					this.level = STANDARD;
+					break;
+				case STANDARD:
+					this.level = DELUXE;
+					break;
+				default:
+					this.level = COOLER;
+					break;
 			}
 		}
 
