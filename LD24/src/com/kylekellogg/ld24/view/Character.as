@@ -31,7 +31,9 @@ package com.kylekellogg.ld24.view
 		private static const STANDARD_OPEN:String = "standard_open";
 		private static const STANDARD_CLOSED:String = "standard_closed";
 		private static const DELUXE:String = "deluxe";
+		
 		private var hasEvolved:Boolean = false;
+		private var gunOffsetY:Number = 40;
 		
 		public function Character()
 		{
@@ -58,15 +60,21 @@ package com.kylekellogg.ld24.view
 		{
 			switch(CharacterModel.instance.level) {
 				case CharacterModel.DELUXE:
+					gunOffsetY = 0;
 					setNewCharacterStates(null, DELUXE);
+					var evt:CharacterEvent = new CharacterEvent( CharacterEvent.EVOLVED_DELUXE, true );
+					dispatchEvent( evt );
 					break;
 				case CharacterModel.STANDARD:
 					setNewCharacterStates(STANDARD_OPEN, STANDARD_CLOSED);
+					gunOffsetY = 60;
 					break;
 				case CharacterModel.MINI:
+					gunOffsetY = 20;
 					setNewCharacterStates(MINI_OPEN, MINI_CLOSED);
 					break;
 				case CharacterModel.COOLER:
+					gunOffsetY = 40;
 					setNewCharacterStates(COOLER_OPEN, COOLER_CLOSED);
 					break;
 				default:
@@ -113,7 +121,7 @@ package com.kylekellogg.ld24.view
 			}
 			
 			gun.x = (this.x + (this.width >> 1)) + 20;
-			gun.y = (this.y + (this.height >> 1)) - 20;
+			gun.y = (this.y + (this.height >> 1)) - gunOffsetY;
 		}
 		
 		protected function setNewCharacterStates(open:String, closed:String):void

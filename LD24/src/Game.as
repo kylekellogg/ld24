@@ -52,7 +52,6 @@ package
 			_weaponsController = new WeaponsController();
 			addChild( _weaponsController );
 			
-			
 			_floor = new Floor();
 			_floor.x = 0;
 			_floor.y = 590;

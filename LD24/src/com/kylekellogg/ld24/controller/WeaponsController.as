@@ -15,6 +15,7 @@ package com.kylekellogg.ld24.controller
 		
 		protected var _chamber:Vector.<Bullet>;
 		protected var _fired:Vector.<Bullet>;
+		private var _isDeluxe:Boolean = false;		
 		
 		public function WeaponsController()
 		{
@@ -35,12 +36,20 @@ package com.kylekellogg.ld24.controller
 			
 			addEventListener(Event.ENTER_FRAME, handleEnterFrame);
 		}
-		
+			
 		protected function handleEnterFrame( e:Event ):void
 		{
+			_isDeluxe = CharacterModel.instance.level == CharacterModel.DELUXE;
+			
 			for (var i:int = _fired.length-1; i > -1; i--) {
 				if (_fired[i].x >= stage.stageWidth) {
-					_chamber.push( _fired.splice( i, 1 )[0] );
+					var b:Bullet = _fired.splice( i, 1 )[0];
+					if ( _isDeluxe ) {
+						stage.removeChild( b );
+					} else {
+						removeChild( b );
+					}
+					_chamber.push( b );
 				}
 			}
 		}
@@ -64,7 +73,13 @@ package com.kylekellogg.ld24.controller
 			}
 			
 			_fired.push( bullet );
-			addChild(bullet);
+			
+			if ( _isDeluxe ) {
+				trace('here');
+				stage.addChild(bullet);
+			} else {
+				addChild(bullet);
+			}
 		}
 	}
 }
