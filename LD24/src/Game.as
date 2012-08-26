@@ -1,6 +1,7 @@
 package
 {
 	import com.kylekellogg.ld24.controller.BackgroundController;
+	import com.kylekellogg.ld24.controller.PickupController;
 	import com.kylekellogg.ld24.controller.PlatformController;
 	import com.kylekellogg.ld24.controller.SoundController;
 	import com.kylekellogg.ld24.events.SoundEvent;
@@ -19,6 +20,7 @@ package
 	{
 		protected var _backgroundController:BackgroundController;
 		protected var _platformController:PlatformController;
+		protected var _pickupController:PickupController;
 		protected var _soundController:SoundController;
 		
 		protected var _floor:Floor;
@@ -38,6 +40,9 @@ package
 			
 			_platformController = new PlatformController();
 			addChild( _platformController );
+			
+			_pickupController = new PickupController( _platformController );
+			addChild( _pickupController );
 			
 			_floor = new Floor();
 			_floor.x = 0;

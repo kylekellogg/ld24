@@ -1,6 +1,7 @@
 package com.kylekellogg.ld24.controller
 {
 	import com.kylekellogg.ld24.model.platform.PlatformModel;
+	import com.kylekellogg.ld24.view.Platform;
 	
 	import starling.events.Event;
 
@@ -31,7 +32,8 @@ package com.kylekellogg.ld24.controller
 				_model.platforms[i].x -= speed;
 				if ( _model.platforms[i].x < -_model.platforms[i].width )
 				{
-					_model.platforms.splice( i, 1 );
+					var platform:Platform = _model.platforms.splice( i, 1 )[0];
+					removeChild( platform );
 					updatePositionsFrom( _model.generate( 1 ) );
 				}
 			}
@@ -54,6 +56,16 @@ package com.kylekellogg.ld24.controller
 				_model.platforms[i].y = stage.stageHeight + (Math.floor( Math.random() * 9 + 2 ) * -50 + 25);	//	Offset by 25 b/c we halved platform height
 				addChild( _model.platforms[i] );
 			}
+		}
+		
+		public function get platforms():Vector.<Platform>
+		{
+			return _model.platforms;
+		}
+		
+		public function get length():uint
+		{
+			return _model.platforms.length;
 		}
 	}
 }
