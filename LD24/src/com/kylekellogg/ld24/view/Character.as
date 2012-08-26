@@ -34,13 +34,6 @@ package com.kylekellogg.ld24.view
 			addEventListener(CharacterEvent.LEVEL_CHANGED, handleLevelChange);
 			
 			MAX_JUMP_HEIGHT = stage.stageHeight - (this.height * 2)
-				
-			var gun:Gun = new Gun();
-			gun.x = this.x + ( this.width >> 1 ) + 10;
-			gun.y = this.y - ( this.height >> 1 ) + 10;
-			addChild(gun);
-			CharacterModel.instance.gun = gun;
-			
 		}
 		
 		protected function handleLevelChange( e:CharacterEvent ):void
@@ -80,7 +73,6 @@ package com.kylekellogg.ld24.view
 			// For Shooting
 			if ( CharacterModel.instance.shooting ) {
 				image = new Image(Assets.instance.texture('cooler_open'));
-				CharacterModel.instance.gun.fire();
 			} else {
 				image = new Image(Assets.instance.texture('cooler_closed'));
 			}
@@ -95,7 +87,6 @@ package com.kylekellogg.ld24.view
 		{
 			removeChild(_image);
 			_image = value;
-			_image.alpha = 0.05;
 			addChild(_image);
 		}
 

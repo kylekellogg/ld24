@@ -16,7 +16,6 @@ package com.kylekellogg.ld24.view
 		protected function handleAddedToStage( e:Event ):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, handleAddedToStage);
-			trace("Gets here");
 		}
 		
 		public function fire():void

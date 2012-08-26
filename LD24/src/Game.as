@@ -81,12 +81,6 @@ package
 		{
 			var evt:SoundEvent = new SoundEvent( SoundEvent.FIRE_SOUND );
 			switch( e.keyCode ) {
-				case Keyboard.SPACE:
-					CharacterModel.instance.shooting = true;
-					evt.id = SoundController.SHOOT_ICE; 
-					_soundController.dispatchEvent( evt );
-					// Don't break so that we can shoot and jump at the same time
-					break;
 				case Keyboard.W:
 				case Keyboard.UP:
 					if ( CharacterModel.instance.landed ) {
@@ -95,6 +89,11 @@ package
 						evt.id = SoundController.JUMP; 
 						_soundController.dispatchEvent( evt );
 					}
+					break;
+				case Keyboard.SPACE:
+					CharacterModel.instance.shooting = true;
+					evt.id = SoundController.SHOOT_ICE; 
+					_soundController.dispatchEvent( evt );
 					break;
 			}
 		}

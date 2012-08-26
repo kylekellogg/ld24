@@ -23,8 +23,14 @@ package com.kylekellogg.ld24.view
 		protected function handleAddedToStage( e:Event ):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, handleAddedToStage);
+			addEventListener(Event.ENTER_FRAME, handleEnterFrame);
 		}
-
+		
+		protected function handleEnterFrame( e:Event ):void
+		{
+			this.x += 10;
+		}
+		
 		public function get image():Image
 		{
 			return _image;
