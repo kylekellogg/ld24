@@ -26,6 +26,9 @@ package com.kylekellogg.ld24.model
 		protected var _level:int = CharacterModel.COOLER;
 		protected var _state:int = CharacterModel.DEFAULT;
 		
+		protected var _jumping:Boolean = false;;
+		protected var _landed:Boolean = true;
+		
 		public function CharacterModel()
 		{
 			if ( instance )
@@ -111,5 +114,27 @@ package com.kylekellogg.ld24.model
 				}
 			}
 		}
+
+		public function get jumping():Boolean
+		{
+			return _jumping;
+		}
+
+		public function set jumping(value:Boolean):void
+		{
+			_jumping = value;
+		}
+
+		public function get landed():Boolean
+		{
+			return _landed;
+		}
+
+		public function set landed(value:Boolean):void
+		{
+			_landed = value;
+		}
+
+
 	}
 }

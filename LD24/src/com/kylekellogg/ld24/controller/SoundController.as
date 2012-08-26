@@ -11,6 +11,7 @@ package com.kylekellogg.ld24.controller
 	{
 		//	IDs of sounds
 		public static const MAIN_LOOP:int = 0;
+		public static const JUMP:int = 1;
 		
 		public function SoundController()
 		{
@@ -27,6 +28,9 @@ package com.kylekellogg.ld24.controller
 			//	Logic depending on id
 			switch ( e.id )
 			{
+				case SoundController.JUMP:
+					sound.play();
+					break;
 				default:
 					sound.play( 0, int.MAX_VALUE );
 					break;

@@ -44,6 +44,10 @@ package com.kylekellogg.ld24.model
 		protected var _MainLoop:Class;
 		public var mainLoop:Sound;
 		
+		[Embed(source='assets/snd/jump.mp3')]
+		protected var _Jump:Class;
+		public var jump:Sound;
+		
 		public var sounds:Dictionary;
 		
 		public function Assets()
@@ -60,9 +64,11 @@ package com.kylekellogg.ld24.model
 			_atlas = new TextureAtlas( Texture.fromBitmap( new _Spritesheet() as Bitmap ), XML( new _SpritesheetData() ) );
 			
 			mainLoop = new _MainLoop() as Sound;
+			jump = new _Jump() as Sound;
 			
 			sounds = new Dictionary();
 			sounds[ SoundController.MAIN_LOOP ] = mainLoop;
+			sounds[ SoundController.JUMP ] = jump;
 		}
 		
 		public function texture( name:String ):Texture

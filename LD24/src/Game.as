@@ -2,11 +2,18 @@ package
 {
 	import com.kylekellogg.ld24.controller.BackgroundController;
 	import com.kylekellogg.ld24.controller.PlatformController;
-	import com.kylekellogg.ld24.view.Floor;
 	import com.kylekellogg.ld24.controller.SoundController;
 	import com.kylekellogg.ld24.events.SoundEvent;
+	import com.kylekellogg.ld24.model.CharacterModel;
+	import com.kylekellogg.ld24.view.Character;
+	import com.kylekellogg.ld24.view.Floor;
+	
+	import flash.ui.Keyboard;
 	
 	import starling.display.Sprite;
+	import starling.events.Event;
+	import starling.events.KeyboardEvent;
+	import starling.events.TouchEvent;
 
 	public class Game extends Sprite
 	{
@@ -15,6 +22,7 @@ package
 		protected var _soundController:SoundController;
 		
 		protected var _floor:Floor;
+		protected var _character:Character;
 		
 		public function Game()
 		{
@@ -43,6 +51,34 @@ package
 			_soundController.dispatchEvent( evt );
 			
 			addEventListener( SoundEvent.FIRE_SOUND, handleFireSound );
+			addEventListener( Event.ADDED_TO_STAGE, handleAddedToStage );
+		}
+		
+		protected function handleAddedToStage( e:Event ):void
+		{
+			removeEventListener( Event.ADDED_TO_STAGE, handleAddedToStage );
+			
+			_character = new Character();
+			_character.x = 25;
+			_character.y = (stage.stageHeight - _character.height) - ( _floor.height >> 1);
+			addChild(_character);
+			
+			stage.addEventListener( KeyboardEvent.KEY_DOWN, handleKeyboardEvent);
+		}
+		
+		protected function handleKeyboardEvent( e:KeyboardEvent ):void
+		{
+			switch( e.keyCode ) {
+				case Keyboard.SPACE:
+					if ( CharacterModel.instance.landed ) {
+						CharacterModel.instance.jumping = true;
+						CharacterModel.instance.landed = false;
+						var evt:SoundEvent = new SoundEvent( SoundEvent.FIRE_SOUND );
+						evt.id = SoundController.JUMP; 
+						_soundController.dispatchEvent( evt );
+					}
+					break;
+			}
 		}
 		
 		protected function handleFireSound( e:SoundEvent ):void
