@@ -31,6 +31,7 @@ package com.kylekellogg.ld24.view
 		private static const STANDARD_OPEN:String = "standard_open";
 		private static const STANDARD_CLOSED:String = "standard_closed";
 		private static const DELUXE:String = "deluxe";
+		private var hasEvolved:Boolean = false;
 		
 		public function Character()
 		{
@@ -71,10 +72,17 @@ package com.kylekellogg.ld24.view
 				default:
 					break;
 			}
+			
+			hasEvolved = true;
 		}
 		
 		protected function handleEnterFrame( e:Event ):void
 		{
+			if ( hasEvolved ) {
+				this.y = (stage.stageHeight - this.height) - 50;
+				hasEvolved = false;
+			}
+			
 			// For Jumping
 			if ( CharacterModel.instance.jumping ) 
 			{

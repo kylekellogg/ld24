@@ -122,16 +122,17 @@ package com.kylekellogg.ld24.model
 			var current:int = this.level;
 			switch(current) {
 				case COOLER:
-					this.level = MINI;
+					beer = 100;
 					break;
 				case MINI:
-					this.level = STANDARD;
+					beer = 300;
 					break;
 				case STANDARD:
-					this.level = DELUXE;
+					beer = 600;
 					break;
+				case DELUXE:
 				default:
-					this.level = COOLER;
+					beer = 0;
 					break;
 			}
 		}
