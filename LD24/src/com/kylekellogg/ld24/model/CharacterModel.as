@@ -4,6 +4,7 @@ package com.kylekellogg.ld24.model
 	import com.kylekellogg.ld24.view.Character;
 	
 	import starling.events.EventDispatcher;
+	import com.kylekellogg.ld24.view.Gun;
 
 	public class CharacterModel extends EventDispatcher
 	{
@@ -21,6 +22,7 @@ package com.kylekellogg.ld24.model
 		public static const DELUXE:int = 3;
 		
 		public var character:Character;
+		public var gun:Gun;
 		
 		protected var _beer:Number = 0;
 		protected var _level:int = CharacterModel.COOLER;
