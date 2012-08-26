@@ -53,7 +53,7 @@ package com.kylekellogg.ld24.controller
 					separator = Math.floor(start / 50) + 1;
 				}
 				_model.platforms[i].x = Math.floor( Math.random() * 15 + separator ) * 50;
-				_model.platforms[i].y = stage.stageHeight + (Math.floor( Math.random() * 9 + 2 ) * -50 + 25);	//	Offset by 25 b/c we halved platform height
+				_model.platforms[i].y = (stage.stageHeight - Game.FLOOR_HEIGHT) + (Math.floor( Math.random() * 9 + 2 ) * -50 + 25);	//	Offset by 25 b/c we halved platform height
 				addChild( _model.platforms[i] );
 			}
 		}

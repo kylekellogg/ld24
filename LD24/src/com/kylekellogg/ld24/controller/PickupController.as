@@ -10,6 +10,7 @@ package com.kylekellogg.ld24.controller
 		protected var _platformController:PlatformController;
 		protected var _platforms:Vector.<Platform>;
 		protected var _pickups:Vector.<Pickup>;
+		protected var _canOffset:int = 5;
 		
 		public function PickupController( platformController:PlatformController )
 		{
@@ -90,7 +91,7 @@ package com.kylekellogg.ld24.controller
 					_pickups.push( pickup );
 					var platformWidthMinusPickupWidth:Number = _platforms[n].width - pickup.width
 					pickup.x = _platforms[n].x + ((Math.random() * platformWidthMinusPickupWidth + pickup.width) - pickup.width);
-					pickup.y = _platforms[n].y - pickup.height;
+					pickup.y = (pickup.family == Pickup.FAMILY_CANS ? stage.stageHeight - Game.FLOOR_HEIGHT + _canOffset : _platforms[n].y) - pickup.height;
 					addChild( pickup );
 					return n;
 				}

@@ -23,7 +23,7 @@ package com.kylekellogg.ld24.view
 			{
 				var img:Image = Image.fromBitmap( Assets.instance.platform );
 				img.x = i * 50;
-				img.height = 10;
+				img.height = Game.FLOOR_HEIGHT;
 				addChild( img );
 			}
 		}

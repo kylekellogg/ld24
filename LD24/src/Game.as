@@ -23,6 +23,8 @@ package
 
 	public class Game extends Sprite
 	{
+		public static const FLOOR_HEIGHT:int = 50;
+		
 		protected var _backgroundController:BackgroundController;
 		protected var _platformController:PlatformController;
 		protected var _pickupController:PickupController;
@@ -50,16 +52,14 @@ package
 			_platformController = new PlatformController();
 			addChild( _platformController );
 			
-			_pickupController = new PickupController( _platformController );
-			addChild( _pickupController );
-			
 			_weaponsController = new WeaponsController();
 			addChild( _weaponsController );
 			
 			_floor = new Floor();
-			_floor.x = 0;
-			_floor.y = 590;
 			addChild( _floor );
+			
+			_pickupController = new PickupController( _platformController );
+			addChild( _pickupController );
 			
 			_soundController = new SoundController();
 			//	Testing
@@ -75,6 +75,9 @@ package
 		{
 			removeEventListener( Event.ADDED_TO_STAGE, handleAddedToStage );
 			
+			_floor.x = 0;
+			_floor.y = stage.stageHeight - Game.FLOOR_HEIGHT;
+			
 			_beerLabel = new TextField(200, 50, "Beer: " + CharacterModel.instance.beer, "Helvetica", 24, 0, true);
 			_beerLabel.hAlign = HAlign.LEFT;
 			_beerLabel.x = 20;
@@ -82,7 +85,7 @@ package
 			
 			_character = new Character();
 			_character.x = 25;
-			_character.y = (stage.stageHeight - _character.height) - 50;
+			_character.y = (stage.stageHeight - _character.height) - Game.FLOOR_HEIGHT + _character.offsets[CharacterModel.instance.level];
 			addChild(_character);
 			
 			stage.addEventListener( KeyboardEvent.KEY_DOWN, handleKeyboardDown);

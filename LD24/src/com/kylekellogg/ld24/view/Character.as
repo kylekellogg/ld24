@@ -7,6 +7,7 @@ package com.kylekellogg.ld24.view
 	import com.kylekellogg.ld24.model.CharacterModel;
 	
 	import flash.geom.Point;
+	import flash.utils.Dictionary;
 	
 	import starling.display.Image;
 	import starling.display.Sprite;
@@ -32,6 +33,13 @@ package com.kylekellogg.ld24.view
 		private static const STANDARD_CLOSED:String = "standard_closed";
 		private static const DELUXE:String = "deluxe";
 		
+		protected static const COOLER_OFFSET:int = 28;
+		protected static const MINI_OFFSET:int = 28;
+		protected static const STANDARD_OFFSET:int = 17;
+		protected static const DELUXE_OFFSET:int = 23;
+		
+		public var offsets:Dictionary;
+		
 		private var hasEvolved:Boolean = false;
 		private var gunOffsetY:Number = 40;
 		
@@ -39,6 +47,12 @@ package com.kylekellogg.ld24.view
 		{
 			super();
 			CharacterModel.instance.character = this;
+			
+			offsets = new Dictionary();
+			offsets[CharacterModel.COOLER] = offsets['cooler'] = COOLER_OFFSET;
+			offsets[CharacterModel.MINI] = offsets['mini'] = MINI_OFFSET;
+			offsets[CharacterModel.STANDARD] = offsets['standard'] = STANDARD_OFFSET;
+			offsets[CharacterModel.DELUXE] = offsets['deluxe'] = DELUXE_OFFSET;
 			
 			setNewCharacterStates(COOLER_OPEN, COOLER_CLOSED);
 			addEventListener(Event.ADDED_TO_STAGE, handleAddedToStage);
@@ -86,7 +100,7 @@ package com.kylekellogg.ld24.view
 		protected function handleEnterFrame( e:Event ):void
 		{
 			if ( hasEvolved ) {
-				this.y = (stage.stageHeight - this.height) - 50;
+				this.y = (stage.stageHeight - this.height) - Game.FLOOR_HEIGHT + offsets[CharacterModel.instance.level];
 				hasEvolved = false;
 			}
 			
@@ -103,10 +117,10 @@ package com.kylekellogg.ld24.view
 				}
 			} else {
 				if ( !CharacterModel.instance.landed ) {
-					if ( this.y < (stage.stageHeight - this.height) - 50) {
+					if ( this.y < (stage.stageHeight - this.height) - Game.FLOOR_HEIGHT + offsets[CharacterModel.instance.level]) {
 						this.y += _vel;
-					} else if ( this.y >= (stage.stageHeight - this.height) - 50 ) {
-						this.y = (stage.stageHeight - this.height) - 50;
+					} else if ( this.y >= (stage.stageHeight - this.height) - Game.FLOOR_HEIGHT + offsets[CharacterModel.instance.level] ) {
+						this.y = (stage.stageHeight - this.height) - Game.FLOOR_HEIGHT + offsets[CharacterModel.instance.level];
 						CharacterModel.instance.landed = true;
 					}
 				}
