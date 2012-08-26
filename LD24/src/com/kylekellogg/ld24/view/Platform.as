@@ -7,17 +7,18 @@ package com.kylekellogg.ld24.view
 	
 	public class Platform extends Sprite
 	{
-		public static const LONG:int	= 3;
-		public static const NORMAL:int	= 2;
-		public static const SHORT:int	= 1;
-		public static const BLOCK:int	= 0;
+		public static const LONG:int	= 5;
+		public static const NORMAL:int	= 4;
+		public static const SHORT:int	= 3;
+		public static const BLOCK:int	= 2;
 		
 		public var flaggedForDisposal:Boolean = false;
+		public var hasPickup:Boolean = false;
 		
 		public function Platform( type:int )
 		{
 			super();
-			if ( type > 3 || type < 0 )
+			if ( type > 5 || type < 2 )
 				throw new Error( 'Way to specify a bogus platform type. Use the constants next time.' );
 			
 			for ( var i:int = 0; i < type; i++ )

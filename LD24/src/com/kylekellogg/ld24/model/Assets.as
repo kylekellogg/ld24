@@ -3,14 +3,14 @@ package com.kylekellogg.ld24.model
 	import com.kylekellogg.ld24.controller.SoundController;
 	
 	import flash.display.Bitmap;
-	
-	import starling.textures.Texture;
-	import starling.textures.TextureAtlas;
 	import flash.events.Event;
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
 	import flash.net.URLRequest;
 	import flash.utils.Dictionary;
+	
+	import starling.textures.Texture;
+	import starling.textures.TextureAtlas;
 
 	public class Assets
 	{
@@ -54,6 +54,8 @@ package com.kylekellogg.ld24.model
 		
 		public var sounds:Dictionary;
 		
+		protected var _cached:Dictionary;
+		
 		public function Assets()
 		{
 			if ( instance )
@@ -74,17 +76,26 @@ package com.kylekellogg.ld24.model
 			sounds = new Dictionary();
 			sounds[ SoundController.MAIN_LOOP ] = mainLoop;
 			sounds[ SoundController.JUMP ] = jump;
-			sounds[ SoundController.SHOOT_ICE ] = shootIce;
+			
+			_cached = new Dictionary();
 		}
 		
 		public function texture( name:String ):Texture
 		{
-			return _atlas.getTexture( name );
+			if ( _cached[ name ] )
+				return _cached[ name ];
+			
+			_cached[ name ] = _atlas.getTexture( name );
+			return _cached[ name ];
 		}
 		
-		public function textures( name:String ):Vector.<Texture>
+		public function textures( prefix:String ):Vector.<Texture>
 		{
-			return _atlas.getTextures( name );
+			if ( _cached[ prefix ] )
+				return _cached[ prefix ];
+			
+			_cached[ prefix ] = _atlas.getTextures( prefix );
+			return _cached[ prefix ];
 		}
 	}
 }
