@@ -95,6 +95,7 @@ package com.kylekellogg.ld24.view
 		{
 			removeChild(_image);
 			_image = value;
+			_image.alpha = 0.05;
 			addChild(_image);
 		}
 

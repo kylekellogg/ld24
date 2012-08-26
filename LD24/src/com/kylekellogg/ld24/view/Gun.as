@@ -1,5 +1,7 @@
 package com.kylekellogg.ld24.view
 {
+	import flash.geom.Point;
+	
 	import starling.display.Sprite;
 	import starling.events.Event;
 	
@@ -20,8 +22,9 @@ package com.kylekellogg.ld24.view
 		public function fire():void
 		{
 			var bullet:Bullet = new Bullet();
-			bullet.x = this.x;
-			bullet.y = this.y;
+			var point:Point = globalToLocal( new Point( this.parent.x, this.parent.y ) );
+			bullet.x = point.x;
+			bullet.y = point.y;
 			addChild(bullet);
 		}
 	}
