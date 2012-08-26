@@ -4,6 +4,8 @@ package
 	import com.kylekellogg.ld24.controller.PickupController;
 	import com.kylekellogg.ld24.controller.PlatformController;
 	import com.kylekellogg.ld24.controller.SoundController;
+	import com.kylekellogg.ld24.controller.WeaponsController;
+	import com.kylekellogg.ld24.events.CharacterEvent;
 	import com.kylekellogg.ld24.events.SoundEvent;
 	import com.kylekellogg.ld24.model.CharacterModel;
 	import com.kylekellogg.ld24.view.Character;
@@ -27,6 +29,7 @@ package
 		protected var _character:Character;
 		
 		protected var debugging:Boolean = true;
+		private var _weaponsController:WeaponsController;
 		
 		public function Game()
 		{
@@ -45,6 +48,10 @@ package
 			
 			_pickupController = new PickupController( _platformController );
 			addChild( _pickupController );
+			
+			_weaponsController = new WeaponsController();
+			addChild( _weaponsController );
+			
 			
 			_floor = new Floor();
 			_floor.x = 0;
@@ -67,7 +74,7 @@ package
 			
 			_character = new Character();
 			_character.x = 25;
-			_character.y = (stage.stageHeight - _character.height) - ( _floor.height >> 1);
+			_character.y = (stage.stageHeight - _character.height) - 50;
 			addChild(_character);
 			
 			stage.addEventListener( KeyboardEvent.KEY_DOWN, handleKeyboardDown);
@@ -107,6 +114,8 @@ package
 					CharacterModel.instance.shooting = true;
 					evt.id = SoundController.SHOOT_ICE; 
 					_soundController.dispatchEvent( evt );
+					var cevt:CharacterEvent = new CharacterEvent( CharacterEvent.FIRE_BULLET );
+					_weaponsController.dispatchEvent( cevt );
 					break;
 			}
 		}

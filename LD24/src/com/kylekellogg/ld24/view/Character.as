@@ -6,6 +6,8 @@ package com.kylekellogg.ld24.view
 	import com.kylekellogg.ld24.model.Assets;
 	import com.kylekellogg.ld24.model.CharacterModel;
 	
+	import flash.geom.Point;
+	
 	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.events.Event;
@@ -19,6 +21,8 @@ package com.kylekellogg.ld24.view
 		
 		protected var _closed:Image;
 		protected var _open:Image;
+		
+		protected var _gun:Point;
 		
 		private static const COOLER_OPEN:String = "cooler_open";
 		private static const COOLER_CLOSED:String = "cooler_closed";
@@ -43,7 +47,10 @@ package com.kylekellogg.ld24.view
 			addEventListener(Event.ENTER_FRAME, handleEnterFrame);
 			addEventListener(CharacterEvent.LEVEL_CHANGED, handleLevelChange);
 			
-			MAX_JUMP_HEIGHT = stage.stageHeight - (this.height * 2)
+			MAX_JUMP_HEIGHT = stage.stageHeight - (this.height * 2.5)
+			var gunx:Number = (this.x + (this.width >> 1)) + 20;
+			var guny:Number = (this.y + (this.height >> 1)) - 20;
+			gun = new Point(x, y);
 		}
 		
 		protected function handleLevelChange( e:CharacterEvent ):void
@@ -81,10 +88,10 @@ package com.kylekellogg.ld24.view
 				}
 			} else {
 				if ( !CharacterModel.instance.landed ) {
-					if ( this.y < 475 ) {
+					if ( this.y < (stage.stageHeight - this.height) - 50) {
 						this.y += _vel;
-					} else if ( this.y >= 475 ) {
-						this.y = 475;
+					} else if ( this.y >= (stage.stageHeight - this.height) - 50 ) {
+						this.y = (stage.stageHeight - this.height) - 50;
 						CharacterModel.instance.landed = true;
 					}
 				}
@@ -96,6 +103,9 @@ package com.kylekellogg.ld24.view
 			} else {
 				image = _closed;
 			}
+			
+			gun.x = (this.x + (this.width >> 1)) + 20;
+			gun.y = (this.y + (this.height >> 1)) - 20;
 		}
 		
 		protected function setNewCharacterStates(open:String, closed:String):void
@@ -119,7 +129,18 @@ package com.kylekellogg.ld24.view
 		{
 			removeChild(_image);
 			_image = value;
+			_image.alpha = 0.5;
 			addChild(_image);
+		}
+
+		public function get gun():Point
+		{
+			return _gun;
+		}
+
+		public function set gun(value:Point):void
+		{
+			_gun = value;
 		}
 
 	}

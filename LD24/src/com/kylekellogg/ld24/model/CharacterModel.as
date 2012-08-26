@@ -22,7 +22,6 @@ package com.kylekellogg.ld24.model
 		public static const DELUXE:int = 3;
 		
 		public var character:Character;
-		public var gun:Gun;
 		
 		protected var _beer:Number = 0;
 		protected var _level:int = CharacterModel.COOLER;
