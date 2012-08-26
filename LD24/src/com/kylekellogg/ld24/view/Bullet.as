@@ -2,6 +2,8 @@ package com.kylekellogg.ld24.view
 {
 	import com.kylekellogg.ld24.model.Assets;
 	
+	import flash.geom.Point;
+	
 	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.events.Event;
@@ -14,6 +16,7 @@ package com.kylekellogg.ld24.view
 		{
 			super();
 			addEventListener(Event.ADDED_TO_STAGE, handleAddedToStage);
+			
 			image = new Image(Assets.instance.texture('ice_cube'));
 			image.x = this.x;
 			image.y = this.y;
@@ -40,6 +43,5 @@ package com.kylekellogg.ld24.view
 		{
 			_image = value;
 		}
-
 	}
 }

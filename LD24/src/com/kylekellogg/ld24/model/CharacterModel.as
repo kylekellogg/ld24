@@ -2,7 +2,6 @@ package com.kylekellogg.ld24.model
 {
 	import com.kylekellogg.ld24.events.CharacterEvent;
 	import com.kylekellogg.ld24.view.Character;
-	import com.kylekellogg.ld24.view.Gun;
 	
 	import starling.events.EventDispatcher;
 
