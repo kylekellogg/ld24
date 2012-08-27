@@ -43,15 +43,23 @@ package com.kylekellogg.ld24.controller
 			
 			for (var i:int = _fired.length-1; i > -1; i--) {
 				if (_fired[i].x >= stage.stageWidth) {
-					var b:Bullet = _fired.splice( i, 1 )[0];
-					if ( _isDeluxe ) {
-						stage.removeChild( b );
-					} else {
-						removeChild( b );
-					}
-					_chamber.push( b );
+					destroy( i );
 				}
 			}
+		}
+		
+		public function destroy( index:int ):void
+		{
+			if ( index >= _fired.length )
+				return;
+			
+			var b:Bullet = _fired.splice( index, 1 )[0];
+			if ( _isDeluxe ) {
+				stage.removeChild( b );
+			} else {
+				removeChild( b );
+			}
+			_chamber.push( b );
 		}
 		
 		public function handleFireBullet( e:CharacterEvent ):void
@@ -80,5 +88,16 @@ package com.kylekellogg.ld24.controller
 				addChild(bullet);
 			}
 		}
+
+		public function get fired():Vector.<Bullet>
+		{
+			return _fired;
+		}
+
+		public function set fired(value:Vector.<Bullet>):void
+		{
+			_fired = value;
+		}
+
 	}
 }

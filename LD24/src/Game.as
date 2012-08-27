@@ -12,6 +12,8 @@ package
 	import com.kylekellogg.ld24.view.Character;
 	import com.kylekellogg.ld24.view.Floor;
 	
+	import flash.geom.Point;
+	import flash.geom.Rectangle;
 	import flash.ui.Keyboard;
 	
 	import starling.display.Sprite;
@@ -101,6 +103,43 @@ package
 		protected function handleEnterFrame( e:Event ):void
 		{
 			_beerLabel.text = "Beer: " + CharacterModel.instance.beer;
+			
+			var char_bounds:Rectangle = _character.getBounds( this );
+			var bullet_bounds:Rectangle;
+			var enemy_bounds:Rectangle;
+			var pickup_bounds:Rectangle;
+			for ( var i:int = _enemyController.enemies.length - 1; i > -1; i-- )
+			{
+				enemy_bounds = _enemyController.enemies[i].getBounds( this );
+				
+				if ( enemy_bounds.intersects( char_bounds ) )
+				{
+					//	TODO: Hurt player
+					_enemyController.kill( i );
+				}
+				else
+				{
+					for ( var j:int = _weaponsController.fired.length - 1; j > -1; j-- )
+					{
+						bullet_bounds = _weaponsController.fired[j].getBounds( this );
+						if ( bullet_bounds.intersects( enemy_bounds ) )
+						{
+							_weaponsController.destroy( j );
+							_enemyController.kill( i );
+						}
+					}
+				}
+			}
+			
+			for ( i = _pickupController.pickups.length - 1; i > -1; i-- )
+			{
+				pickup_bounds = _pickupController.pickups[i].getBounds( this );
+				if ( pickup_bounds.intersects( char_bounds ) )
+				{
+					CharacterModel.instance.beer += _pickupController.pickups[i].beer;
+					_pickupController.recycle( i );
+				}
+			}
 		}
 		
 		protected function handleKeyboardUp( e:KeyboardEvent ):void

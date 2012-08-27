@@ -22,10 +22,16 @@ package com.kylekellogg.ld24.view
 		public static const FAMILY_SIXPACK:int = 10;
 		public static const FAMILY_KEG:int = 11;
 		
+		public static const BEER_CAN:int = 1;
+		public static const BEER_BOTTLE:int = 3;
+		public static const BEER_SIXPACK:int = 6;
+		public static const BEER_KEG:int = 50;
+		
 		protected var _pickups:Vector.<String>;
 		
 		public var type:int;
 		public var family:int;
+		public var beer:int;
 		
 		public function Pickup( id:int )
 		{
@@ -34,6 +40,7 @@ package com.kylekellogg.ld24.view
 			
 			type = id;
 			family = type < 5 ? type < 4 ? type < 1 ? Pickup.FAMILY_CANS : Pickup.FAMILY_BOTTLES : Pickup.FAMILY_SIXPACK : Pickup.FAMILY_KEG;
+			beer = type < 5 ? type < 4 ? type < 1 ? Pickup.BEER_CAN : Pickup.BEER_BOTTLE : Pickup.BEER_SIXPACK : (type == Pickup.KEG_HEALTH ? Pickup.BEER_KEG : 0);
 			
 			_pickups = new Vector.<String>();
 			_pickups.push( 'beer_can', 'beer_bottle_american', 'beer_bottle_bad', 'beer_bottle_mexican', 'beer_six_pack', 'firepower_keg', 'health_keg', 'magnet_keg' );

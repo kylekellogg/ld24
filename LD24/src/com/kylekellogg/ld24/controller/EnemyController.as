@@ -43,6 +43,12 @@ package com.kylekellogg.ld24.controller
 			}
 		}
 		
+		public function kill( index:int ):void
+		{
+			_model.enemies[index].x = stage.stageWidth + _model.enemies[index].width + Math.floor( Math.random() * 4000 );
+			_model.enemies.push( _model.enemies.splice( index, 1 )[0] );
+		}
+		
 		protected function handleEnterFrame( e:Event ):void
 		{
 			var speed:int = 5;
@@ -55,6 +61,11 @@ package com.kylekellogg.ld24.controller
 					_model.enemies.push( _model.enemies.splice( i, 1 )[0] );
 				}
 			}
+		}
+		
+		public function get enemies():Vector.<Enemy>
+		{
+			return _model.enemies;
 		}
 	}
 }

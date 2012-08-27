@@ -41,27 +41,32 @@ package com.kylekellogg.ld24.controller
 				_pickups[i].x -= speed;
 				if ( _pickups[i].x < -_pickups[i].width )
 				{
-					var pickup:Pickup = _pickups.splice( i, 1 )[0];
-					removeChild( pickup );
-					var type:int = Pickup.CAN;
-					var random:Number = Math.random();
-					switch ( pickup.family )
-					{
-						case Pickup.FAMILY_CANS:
-							break;
-						case Pickup.FAMILY_BOTTLES:
-							type = random > 0.33 ? random > 0.66 ? Pickup.BOTTLE_AMERICAN : Pickup.BOTTLE_BAD : Pickup.BOTTLE_MEXICAN;
-							break;
-						case Pickup.FAMILY_SIXPACK:
-							type = Pickup.SIXPACK
-							break;
-						case Pickup.FAMILY_KEG:
-							type = random > 0.33 ? random > 0.66 ? Pickup.KEG_MAGNET : Pickup.KEG_HEALTH : Pickup.KEG_FIRERATE;
-							break;
-					}
-					addPickups( 1, pickup.type );
+					recycle( i );
 				}
 			}
+		}
+		
+		public function recycle( index:int ):void
+		{
+			var pickup:Pickup = _pickups.splice( index, 1 )[0];
+			removeChild( pickup );
+			var type:int = Pickup.CAN;
+			var random:Number = Math.random();
+			switch ( pickup.family )
+			{
+				case Pickup.FAMILY_CANS:
+					break;
+				case Pickup.FAMILY_BOTTLES:
+					type = random > 0.33 ? random > 0.66 ? Pickup.BOTTLE_AMERICAN : Pickup.BOTTLE_BAD : Pickup.BOTTLE_MEXICAN;
+					break;
+				case Pickup.FAMILY_SIXPACK:
+					type = Pickup.SIXPACK
+					break;
+				case Pickup.FAMILY_KEG:
+					type = random > 0.33 ? random > 0.66 ? Pickup.KEG_MAGNET : Pickup.KEG_HEALTH : Pickup.KEG_FIRERATE;
+					break;
+			}
+			addPickups( 1, pickup.type );
 		}
 		
 		protected function addPickups( num:int, type:int ):void
@@ -98,5 +103,16 @@ package com.kylekellogg.ld24.controller
 			}
 			return 0;
 		}
+
+		public function get pickups():Vector.<Pickup>
+		{
+			return _pickups;
+		}
+
+		public function set pickups(value:Vector.<Pickup>):void
+		{
+			_pickups = value;
+		}
+
 	}
 }
