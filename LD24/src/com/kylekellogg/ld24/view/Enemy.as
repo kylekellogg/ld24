@@ -6,17 +6,10 @@ package com.kylekellogg.ld24.view
 	
 	public class Enemy extends MovieClip
 	{
-		public function Enemy(textures:Vector.<Texture>, fps:Number=12)
+		public function Enemy(textures:Vector.<Texture>, fps:Number=6)
 		{
 			super(textures, fps);
 			Starling.juggler.add( this );
-			this.loop = false;
-			this.stop();
-		}
-		
-		public function attack():void
-		{
-			this.play();
 		}
 	}
 }
