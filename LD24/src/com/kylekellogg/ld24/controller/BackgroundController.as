@@ -43,14 +43,25 @@ package com.kylekellogg.ld24.controller
 		
 		protected function handleLevelChanged( e:CharacterEvent ):void
 		{
-			if ( CharacterModel.instance.level == CharacterModel.MINI )
+			switch( CharacterModel.instance.level )
 			{
-				_model.current = _model.collections.slice( 1 );
+				case CharacterModel.COOLER:
+					_model.current = _model.collections.slice();
+					break;
+				case CharacterModel.MINI:
+					_model.current = _model.collections.slice(1);
+					break;
+				case CharacterModel.STANDARD:
+					_model.current = _model.collections.slice(2);
+					break;
+				case CharacterModel.DELUXE:
+					_model.current = _model.collections.slice(3);
+					break;
+				default:
+					_model.current = _model.collections.slice();
+					break;
 			}
-			else
-			{
-				_model.current = _model.collections.slice();
-			}
+			
 			replace( _model.current[0] );
 		}
 		

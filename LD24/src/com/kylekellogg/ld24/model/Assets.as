@@ -19,30 +19,45 @@ package com.kylekellogg.ld24.model
 		[Embed(source='assets/bg_beach_1.png')]
 		protected var _BG11:Class;
 		public var bg11:Bitmap;
-		
 		[Embed(source='assets/bg_beach_2.png')]
 		protected var _BG12:Class;
 		public var bg12:Bitmap;
-		
 		[Embed(source='assets/bg_beach_3.png')]
 		protected var _BG13:Class;
 		public var bg13:Bitmap;
 		
-		[Embed(source='assets/bg_beach_4.png')]
-		protected var _BG14:Class;
-		public var bg14:Bitmap;
-		
 		[Embed(source='assets/bg_dorm_1.png')]
 		protected var _BG21:Class;
 		public var bg21:Bitmap;
-		
 		[Embed(source='assets/bg_dorm_2.png')]
 		protected var _BG22:Class;
 		public var bg22:Bitmap;
-		
 		[Embed(source='assets/bg_dorm_3.png')]
 		protected var _BG23:Class;
 		public var bg23:Bitmap;
+		
+		[Embed(source='assets/bg_kitchen_1.png')]
+		protected var _BG31:Class;
+		public var bg31:Bitmap;
+		[Embed(source='assets/bg_kitchen_2.png')]
+		protected var _BG32:Class;
+		public var bg32:Bitmap;
+		[Embed(source='assets/bg_kitchen_3.png')]
+		protected var _BG33:Class;
+		public var bg33:Bitmap;
+		
+		[Embed(source='assets/bg_moon_1.png')]
+		protected var _BG41:Class;
+		public var bg41:Bitmap;
+		[Embed(source='assets/bg_moon_2.png')]
+		protected var _BG42:Class;
+		public var bg42:Bitmap;
+		[Embed(source='assets/bg_moon_3.png')]
+		protected var _BG43:Class;
+		public var bg43:Bitmap;
+		[Embed(source='assets/bg_moon_4.png')]
+		protected var _BG44:Class;
+		public var bg44:Bitmap;
 		
 		[Embed(source='assets/platform.png')]
 		protected var _Platform:Class;
@@ -96,10 +111,16 @@ package com.kylekellogg.ld24.model
 			bg11 = new _BG11() as Bitmap;
 			bg12 = new _BG12() as Bitmap;
 			bg13 = new _BG13() as Bitmap;
-			bg14 = new _BG14() as Bitmap;
 			bg21 = new _BG21() as Bitmap;
 			bg22 = new _BG22() as Bitmap;
 			bg23 = new _BG23() as Bitmap;
+			bg31 = new _BG31() as Bitmap;
+			bg32 = new _BG32() as Bitmap;
+			bg33 = new _BG33() as Bitmap;
+			bg41 = new _BG41() as Bitmap;
+			bg42 = new _BG42() as Bitmap;
+			bg43 = new _BG43() as Bitmap;
+			bg44 = new _BG44() as Bitmap;
 			
 			platform = new _Platform() as Bitmap;
 			

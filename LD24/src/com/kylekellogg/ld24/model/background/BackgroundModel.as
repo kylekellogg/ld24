@@ -20,14 +20,24 @@ package com.kylekellogg.ld24.model.background
 			col1.add( Assets.instance.bg11 );
 			col1.add( Assets.instance.bg12 );
 			col1.add( Assets.instance.bg13 );
-			col1.add( Assets.instance.bg14 );
 			
 			var col2:BackgroundCollectionModel = new BackgroundCollectionModel();
 			col2.add( Assets.instance.bg21 );
 			col2.add( Assets.instance.bg22 );
 			col2.add( Assets.instance.bg23 );
 			
-			collections.push( col1, col2 );
+			var col3:BackgroundCollectionModel = new BackgroundCollectionModel();
+			col3.add( Assets.instance.bg31 );
+			col3.add( Assets.instance.bg32 );
+			col3.add( Assets.instance.bg33 );
+			
+			var col4:BackgroundCollectionModel = new BackgroundCollectionModel();
+			col4.add( Assets.instance.bg41 );
+			col4.add( Assets.instance.bg42 );
+			col4.add( Assets.instance.bg43 );
+			col4.add( Assets.instance.bg44 );
+			
+			collections.push( col1, col2, col3, col4 );
 			
 			current = collections.slice( 0, 1 );
 		}
