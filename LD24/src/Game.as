@@ -42,7 +42,6 @@ package
 		protected var _enemyController:EnemyController;
 		protected var _weaponsController:WeaponsController;
 		
-		protected var _floor:Floor;
 		protected var _character:Character;
 		protected var _beerLabel:TextField;
 		protected var _currentState:String;
@@ -67,9 +66,6 @@ package
 			
 			_weaponsController = new WeaponsController();
 			addChild( _weaponsController );
-			
-			_floor = new Floor();
-			addChild( _floor );
 			
 			_pickupController = new PickupController();
 			addChild( _pickupController );
