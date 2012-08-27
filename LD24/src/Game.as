@@ -64,7 +64,7 @@ package
 			_soundController = new SoundController();
 			//	Testing
 			var evt:SoundEvent = new SoundEvent( SoundEvent.FIRE_SOUND );
-			evt.id = SoundController.MAIN_LOOP;
+			evt.id = SoundController.LOOP_PREFIX;
 			_soundController.dispatchEvent( evt );
 			
 			addEventListener( SoundEvent.FIRE_SOUND, handleFireSound );

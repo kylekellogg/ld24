@@ -44,6 +44,10 @@ package com.kylekellogg.ld24.model
 		
 		protected var _atlas:TextureAtlas;
 		
+		[Embed(source='assets/snd/main_loop_prefix.mp3')]
+		protected var _MainLoopPrefix:Class;
+		public var mainLoopPrefix:Sound;
+		
 		[Embed(source='assets/snd/main_loop.mp3')]
 		protected var _MainLoop:Class;
 		public var mainLoop:Sound;
@@ -77,11 +81,13 @@ package com.kylekellogg.ld24.model
 			mainLoop = new _MainLoop() as Sound;
 			jump = new _Jump() as Sound;
 			shootIce = new _ShootIce() as Sound;
+			mainLoopPrefix = new _MainLoopPrefix() as Sound;
 			
 			sounds = new Dictionary();
 			sounds[ SoundController.MAIN_LOOP ] = mainLoop;
 			sounds[ SoundController.JUMP ] = jump;
 			sounds[ SoundController.SHOOT_ICE ] = shootIce;
+			sounds[ SoundController.LOOP_PREFIX ] = mainLoopPrefix;
 			
 			_cached = new Dictionary();
 		}
