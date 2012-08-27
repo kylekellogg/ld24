@@ -34,7 +34,7 @@ package
 	{
 		public static const FLOOR_HEIGHT:int = 50;
 		
-		protected static const MAGNET_RANGE:int = 100 * 100;
+		protected static const MAGNET_RANGE:int = 150 * 150;
 		
 		protected var _backgroundController:BackgroundController;
 		protected var _pickupController:PickupController;

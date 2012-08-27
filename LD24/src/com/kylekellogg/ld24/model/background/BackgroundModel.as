@@ -6,12 +6,9 @@ package com.kylekellogg.ld24.model.background
 	{
 		public var collections:Vector.<BackgroundCollectionModel>;
 		
-		protected var _current:Vector.<BackgroundCollectionModel>;
-		
 		public function BackgroundModel()
 		{
 			collections = new Vector.<BackgroundCollectionModel>();
-			current = new Vector.<BackgroundCollectionModel>();
 		}
 		
 		public function init():void
@@ -21,15 +18,24 @@ package com.kylekellogg.ld24.model.background
 			col1.add( Assets.instance.bg12 );
 			col1.add( Assets.instance.bg13 );
 			
+			col1.next = col1.clone();
+			col1.next.next = col1;
+			
 			var col2:BackgroundCollectionModel = new BackgroundCollectionModel();
 			col2.add( Assets.instance.bg21 );
 			col2.add( Assets.instance.bg22 );
 			col2.add( Assets.instance.bg23 );
 			
+			col2.next = col2.clone();
+			col2.next.next = col2;
+			
 			var col3:BackgroundCollectionModel = new BackgroundCollectionModel();
 			col3.add( Assets.instance.bg31 );
 			col3.add( Assets.instance.bg32 );
 			col3.add( Assets.instance.bg33 );
+			
+			col3.next = col3.clone();
+			col3.next.next = col3;
 			
 			var col4:BackgroundCollectionModel = new BackgroundCollectionModel();
 			col4.add( Assets.instance.bg41 );
@@ -37,34 +43,10 @@ package com.kylekellogg.ld24.model.background
 			col4.add( Assets.instance.bg43 );
 			col4.add( Assets.instance.bg44 );
 			
-			collections.push( col1, col2, col3, col4 );
+			col4.next = col4.clone();
+			col4.next.next = col4;
 			
-			current = collections.slice( 0, 1 );
-		}
-		
-		public function randomize():void
-		{
-			var clone:Vector.<BackgroundCollectionModel> = collections.slice();
-			current = new Vector.<BackgroundCollectionModel>();
-			while ( clone.length ) {
-				var cloned:BackgroundCollectionModel = clone.splice( Math.floor( Math.random() * clone.length ), 1 )[0];
-				cloned.randomize();
-				current.push( cloned );
-			}
-		}
-
-		public function get current():Vector.<BackgroundCollectionModel>
-		{
-			return _current;
-		}
-
-		public function set current(value:Vector.<BackgroundCollectionModel>):void
-		{
-			_current = new Vector.<BackgroundCollectionModel>();
-			for ( var i:int = 0, l:int = value.length; i < l; i++ )
-			{
-				_current.push( value[i].clone() );
-			}
+			collections.push( col1, col2, col3, col4 );
 		}
 
 	}
