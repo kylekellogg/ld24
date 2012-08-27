@@ -78,6 +78,11 @@ package com.kylekellogg.ld24.view
 		
 		protected function handleStateChange( e:CharacterEvent ):void
 		{
+			refreshState();
+		}
+		
+		public function refreshState():void
+		{
 			if ( CharacterModel.instance.state == CharacterModel.MAGNET )
 			{
 				_magnetTimer.reset();
