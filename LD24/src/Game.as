@@ -8,6 +8,7 @@ package
 	import com.kylekellogg.ld24.controller.WeaponsController;
 	import com.kylekellogg.ld24.events.CharacterEvent;
 	import com.kylekellogg.ld24.events.SoundEvent;
+	import com.kylekellogg.ld24.model.Assets;
 	import com.kylekellogg.ld24.model.CharacterModel;
 	import com.kylekellogg.ld24.view.Character;
 	import com.kylekellogg.ld24.view.Floor;
@@ -20,6 +21,7 @@ package
 	
 	import starling.animation.Tween;
 	import starling.core.Starling;
+	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.events.Event;
 	import starling.events.KeyboardEvent;
@@ -38,18 +40,23 @@ package
 		protected var _pickupController:PickupController;
 		protected var _soundController:SoundController;
 		protected var _enemyController:EnemyController;
+		protected var _weaponsController:WeaponsController;
 		
 		protected var _floor:Floor;
 		protected var _character:Character;
 		protected var _beerLabel:TextField;
+		protected var _currentState:String;
 		
 		protected var debugging:Boolean = true;
-		private var _weaponsController:WeaponsController;
+		
+		private static const MENU_STATE:String = "MenuState";
+		private static const GAME_STATE:String = "GameState";
+		private static const END_STATE:String = "EndState";
 		
 		public function Game()
 		{
 			super();
-			
+			_currentState = GAME_STATE;
 			init();
 		}
 		
@@ -80,14 +87,20 @@ package
 			addEventListener( Event.ADDED_TO_STAGE, handleAddedToStage );
 		}
 		
-		protected function handleAddedToStage( e:Event ):void
+		private function menu_init():void
 		{
-			removeEventListener( Event.ADDED_TO_STAGE, handleAddedToStage );
-			
+			var menu:Image = Image.fromBitmap( Assets.instance.menuScreen );
+			menu.x = 0;
+			menu.y = 0;
+			addChild( menu );
+		}
+		
+		private function game_init():void
+		{
 			_floor.x = 0;
 			_floor.y = stage.stageHeight - Game.FLOOR_HEIGHT;
 			
-			_beerLabel = new TextField(200, 50, "Beer: " + CharacterModel.instance.beer, "Helvetica", 24, 0, true);
+			_beerLabel = new TextField(200, 50, "Beer: " + CharacterModel.instance.beer, "Helvetica", 24, 0xff0000, true);
 			_beerLabel.hAlign = HAlign.LEFT;
 			_beerLabel.x = 20;
 			addChild( _beerLabel );
@@ -99,6 +112,31 @@ package
 			
 			stage.addEventListener( KeyboardEvent.KEY_DOWN, handleKeyboardDown);
 			stage.addEventListener( KeyboardEvent.KEY_UP, handleKeyboardUp);
+		}
+		
+		private function end_init():void
+		{
+			// TODO Auto Generated method stub
+			
+		}
+		
+		protected function handleAddedToStage( e:Event ):void
+		{
+			removeEventListener( Event.ADDED_TO_STAGE, handleAddedToStage );
+			
+			switch(_currentState)
+			{
+				case MENU_STATE:
+					menu_init();
+					break;
+				case GAME_STATE:
+					game_init();
+					break;
+				case END_STATE:
+					end_init();
+					break;
+			}
+			
 			addEventListener( Event.ENTER_FRAME, handleEnterFrame);
 		}
 		

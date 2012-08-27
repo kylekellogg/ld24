@@ -59,6 +59,10 @@ package com.kylekellogg.ld24.model
 		protected var _BG44:Class;
 		public var bg44:Bitmap;
 		
+		[Embed(source='assets/menu_screen.png')]
+		protected var _MenuScreen:Class;
+		public var menuScreen:Bitmap;
+	
 		[Embed(source='assets/platform.png')]
 		protected var _Platform:Class;
 		public var platform:Bitmap;
@@ -121,6 +125,8 @@ package com.kylekellogg.ld24.model
 			bg42 = new _BG42() as Bitmap;
 			bg43 = new _BG43() as Bitmap;
 			bg44 = new _BG44() as Bitmap;
+			
+			menuScreen = new _MenuScreen() as Bitmap;
 			
 			platform = new _Platform() as Bitmap;
 			

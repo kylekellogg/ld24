@@ -99,8 +99,8 @@ package com.kylekellogg.ld24.view
 					setNewCharacterStates(null, DELUXE);
 					break;
 				case CharacterModel.STANDARD:
-					setNewCharacterStates(STANDARD_OPEN, STANDARD_CLOSED);
-					gunOffsetY = 60;
+					setNewCharacterStates(null, STANDARD_CLOSED);
+					gunOffsetY = 0;
 					break;
 				case CharacterModel.MINI:
 					gunOffsetY = 20;
