@@ -1,6 +1,7 @@
 package
 {
 	import com.kylekellogg.ld24.controller.BackgroundController;
+	import com.kylekellogg.ld24.controller.EnemyController;
 	import com.kylekellogg.ld24.controller.PickupController;
 	import com.kylekellogg.ld24.controller.PlatformController;
 	import com.kylekellogg.ld24.controller.SoundController;
@@ -29,6 +30,7 @@ package
 		protected var _platformController:PlatformController;
 		protected var _pickupController:PickupController;
 		protected var _soundController:SoundController;
+		protected var _enemyController:EnemyController;
 		
 		protected var _floor:Floor;
 		protected var _character:Character;
@@ -60,6 +62,9 @@ package
 			
 			_pickupController = new PickupController( _platformController );
 			addChild( _pickupController );
+			
+			_enemyController = new EnemyController();
+			addChild( _enemyController );
 			
 			_soundController = new SoundController();
 			//	Testing
