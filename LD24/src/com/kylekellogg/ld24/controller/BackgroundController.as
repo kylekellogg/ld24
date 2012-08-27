@@ -35,7 +35,7 @@ package com.kylekellogg.ld24.controller
 			
 			//	Set current
 			_current = new Vector.<Background>();
-			replace( _model.current[0] );
+			replace( _model.collections[0] );
 			
 			//	Handle enter frame
 			addEventListener( Event.ENTER_FRAME, handleEnterFrame );
@@ -43,26 +43,42 @@ package com.kylekellogg.ld24.controller
 		
 		protected function handleLevelChanged( e:CharacterEvent ):void
 		{
+			var collection:BackgroundCollectionModel;
+			
 			switch( CharacterModel.instance.level )
 			{
 				case CharacterModel.COOLER:
-					_model.current = _model.collections.slice();
+					collection = _model.collections.slice()[0];
+					_model.collections.splice( 0, 1, collection.next );
 					break;
 				case CharacterModel.MINI:
-					_model.current = _model.collections.slice(1);
+					collection = _model.collections.slice(1)[0];
+					_model.collections.splice( 1, 1, collection.next );
 					break;
 				case CharacterModel.STANDARD:
-					_model.current = _model.collections.slice(2);
+					collection = _model.collections.slice(2)[0];
+					_model.collections.splice( 2, 1, collection.next );
 					break;
 				case CharacterModel.DELUXE:
-					_model.current = _model.collections.slice(3);
+					collection = _model.collections.slice(3)[0];
+					_model.collections.splice( 3, 1, collection.next );
 					break;
 				default:
-					_model.current = _model.collections.slice();
+					collection = _model.collections.slice()[0];
+					_model.collections.splice( 0, 1, collection.next );
 					break;
 			}
 			
-			replace( _model.current[0] );
+			replace( clearDisposalFlags( collection ) );
+		}
+		
+		protected function clearDisposalFlags( collection:BackgroundCollectionModel ):BackgroundCollectionModel
+		{
+			for ( var i:int = collection.backgrounds.length - 1; i > -1; i-- )
+			{
+				collection.backgrounds[i].flaggedForDisposal = false;
+			}
+			return collection;
 		}
 		
 		public function replace( collection:BackgroundCollectionModel ):void
@@ -86,7 +102,7 @@ package com.kylekellogg.ld24.controller
 			
 			_current = _current.slice( 0, n );
 			oldLength = _current.length;
-			_current = _current.concat( collection.current.slice() );
+			_current = _current.concat( collection.backgrounds.slice() );
 			
 			var length:int = _current.length;
 			
