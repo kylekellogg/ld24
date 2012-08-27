@@ -17,6 +17,9 @@ package com.kylekellogg.ld24.controller
 		public static const MAIN_LOOP:int = 1;
 		public static const JUMP:int = 2;
 		public static const SHOOT_ICE:int = 3;
+		public static var EXPLOSION:int = 4;
+		public static var PICKUP:int = 5;
+		public static var HURT:int = 6;
 		
 		public function SoundController()
 		{
@@ -33,7 +36,10 @@ package com.kylekellogg.ld24.controller
 			//	Logic depending on id
 			switch ( e.id )
 			{
+				case SoundController.EXPLOSION:
+				case SoundController.PICKUP:
 				case SoundController.SHOOT_ICE:
+				case SoundController.HURT:
 				case SoundController.JUMP:
 					sound.play();
 					break;

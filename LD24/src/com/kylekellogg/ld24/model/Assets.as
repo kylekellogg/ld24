@@ -72,6 +72,18 @@ package com.kylekellogg.ld24.model
 		protected var _ShootIce:Class;
 		public var shootIce:Sound;
 		
+		[Embed(source='assets/snd/explosion.mp3')]
+		protected var _Explosion:Class;
+		public var explosion:Sound;
+		
+		[Embed(source='assets/snd/pickup.mp3')]
+		protected var _Pickup:Class;
+		public var pickup:Sound;
+		
+		[Embed(source='assets/snd/player_damage.mp3')]
+		protected var _PlayerDamage:Class;
+		public var playerDamage:Sound;
+		
 		public var sounds:Dictionary;
 		
 		protected var _cached:Dictionary;
@@ -97,12 +109,18 @@ package com.kylekellogg.ld24.model
 			jump = new _Jump() as Sound;
 			shootIce = new _ShootIce() as Sound;
 			mainLoopPrefix = new _MainLoopPrefix() as Sound;
+			explosion = new _Explosion() as Sound;
+			pickup = new _Pickup() as Sound;
+			playerDamage = new _PlayerDamage() as Sound;
 			
 			sounds = new Dictionary();
 			sounds[ SoundController.MAIN_LOOP ] = mainLoop;
 			sounds[ SoundController.JUMP ] = jump;
 			sounds[ SoundController.SHOOT_ICE ] = shootIce;
 			sounds[ SoundController.LOOP_PREFIX ] = mainLoopPrefix;
+			sounds[ SoundController.EXPLOSION ] = explosion;
+			sounds[ SoundController.PICKUP ] = pickup;
+			sounds[ SoundController.HURT ] = playerDamage;
 			
 			_cached = new Dictionary();
 		}
