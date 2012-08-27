@@ -1,29 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://texturepacker.com-->
-<!-- $TexturePacker:SmartUpdate:895f271aca4ed162d69ce17f11c870ff$ -->
+<!-- $TexturePacker:SmartUpdate:1126b1591348d7e5176d792c671e6e66$ -->
 <TextureAtlas imagePath="spritesheet.png">
-    <SubTexture name="beer_bottle_american" x="209" y="535" width="29" height="75"/>
-    <SubTexture name="beer_bottle_bad" x="178" y="535" width="29" height="75"/>
-    <SubTexture name="beer_bottle_mexican" x="478" y="612" width="29" height="75"/>
-    <SubTexture name="beer_can" x="444" y="612" width="32" height="50"/>
-    <SubTexture name="beer_six_pack" x="445" y="356" width="61" height="50"/>
-    <SubTexture name="blender_frame_1" x="396" y="533" width="46" height="100"/>
-    <SubTexture name="blender_frame_2" x="445" y="510" width="46" height="100"/>
-    <SubTexture name="blender_frame_3" x="445" y="408" width="46" height="100"/>
-    <SubTexture name="cooler_closed" x="2" y="154" width="167" height="125"/>
-    <SubTexture name="cooler_open" x="171" y="154" width="167" height="125"/>
-    <SubTexture name="deluxe" x="340" y="179" width="164" height="175"/>
-    <SubTexture name="firepower_keg" x="206" y="433" width="100" height="100"/>
-    <SubTexture name="health_keg" x="104" y="433" width="100" height="100"/>
-    <SubTexture name="ice_cube" x="340" y="154" width="14" height="15"/>
-    <SubTexture name="magnet_keg" x="2" y="433" width="100" height="100"/>
+    <SubTexture name="beer_bottle_american" x="442" y="308" width="29" height="75"/>
+    <SubTexture name="beer_bottle_bad" x="301" y="206" width="29" height="75"/>
+    <SubTexture name="beer_bottle_mexican" x="466" y="231" width="29" height="75"/>
+    <SubTexture name="beer_can" x="466" y="179" width="32" height="50"/>
+    <SubTexture name="beer_six_pack" x="301" y="154" width="61" height="50"/>
+    <SubTexture name="cooler_closed" x="171" y="356" width="167" height="125"/>
+    <SubTexture name="cooler_open" x="2" y="356" width="167" height="125"/>
+    <SubTexture name="deluxe" x="2" y="179" width="164" height="175"/>
+    <SubTexture name="firepower_keg" x="340" y="383" width="100" height="100"/>
+    <SubTexture name="health_keg" x="340" y="281" width="100" height="100"/>
+    <SubTexture name="ice_cube" x="2" y="154" width="14" height="15"/>
+    <SubTexture name="magnet_keg" x="364" y="179" width="100" height="100"/>
     <SubTexture name="mini_closed" x="186" y="2" width="182" height="150"/>
     <SubTexture name="mini_open" x="2" y="2" width="182" height="150"/>
-    <SubTexture name="standard_closed" x="312" y="356" width="131" height="175"/>
+    <SubTexture name="standard_closed" x="168" y="179" width="131" height="175"/>
     <SubTexture name="standard_open" x="370" y="2" width="131" height="175"/>
-    <SubTexture name="stove_frame_1" x="157" y="281" width="153" height="150"/>
-    <SubTexture name="stove_frame_2" x="2" y="281" width="153" height="150"/>
-    <SubTexture name="toaster_frame_1" x="90" y="535" width="86" height="75"/>
-    <SubTexture name="toaster_frame_2" x="2" y="535" width="86" height="75"/>
-    <SubTexture name="toaster_frame_3" x="308" y="533" width="86" height="75"/>
 </TextureAtlas>
