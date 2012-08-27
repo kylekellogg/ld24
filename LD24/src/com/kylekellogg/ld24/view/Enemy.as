@@ -10,6 +10,13 @@ package com.kylekellogg.ld24.view
 		{
 			super(textures, fps);
 			Starling.juggler.add( this );
+			this.loop = false;
+			this.stop();
+		}
+		
+		public function attack():void
+		{
+			this.play();
 		}
 	}
 }
