@@ -11,12 +11,15 @@ package
 	import com.kylekellogg.ld24.model.CharacterModel;
 	import com.kylekellogg.ld24.view.Character;
 	import com.kylekellogg.ld24.view.Floor;
+	import com.kylekellogg.ld24.view.Pickup;
 	
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.media.SoundCodec;
 	import flash.ui.Keyboard;
 	
+	import starling.animation.Tween;
+	import starling.core.Starling;
 	import starling.display.Sprite;
 	import starling.events.Event;
 	import starling.events.KeyboardEvent;
@@ -28,6 +31,8 @@ package
 	public class Game extends Sprite
 	{
 		public static const FLOOR_HEIGHT:int = 50;
+		
+		protected static const MAGNET_RANGE:int = 100 * 100;
 		
 		protected var _backgroundController:BackgroundController;
 		protected var _pickupController:PickupController;
@@ -102,6 +107,7 @@ package
 			_beerLabel.text = "Beer: " + CharacterModel.instance.beer;
 			
 			var char_bounds:Rectangle = _character.getBounds( this );
+			var char_center:Point = new Point( char_bounds.x + (char_bounds.width >> 1), char_bounds.y + (char_bounds.height >> 1) );
 			var bullet_bounds:Rectangle;
 			var enemy_bounds:Rectangle;
 			var pickup_bounds:Rectangle;
@@ -137,18 +143,58 @@ package
 				}
 			}
 			
+			var pickup_center:Point;
+			var distanceX:Number;
+			var distanceY:Number;
 			for ( i = _pickupController.pickups.length - 1; i > -1; i-- )
 			{
 				pickup_bounds = _pickupController.pickups[i].getBounds( this );
-				if ( pickup_bounds.intersects( char_bounds ) )
+				if ( CharacterModel.instance.state == CharacterModel.MAGNET )
 				{
-					CharacterModel.instance.beer += _pickupController.pickups[i].beer;
-					_pickupController.recycle( i );
-					var pickup_sound:SoundEvent = new SoundEvent( SoundEvent.FIRE_SOUND );
-					pickup_sound.id = SoundController.PICKUP;
-					_soundController.dispatchEvent( pickup_sound );
+					pickup_center = new Point( pickup_bounds.x + (pickup_bounds.width >> 1), pickup_bounds.y + (pickup_bounds.height >> 1) );
+					distanceX = char_center.x - pickup_center.x;
+					distanceY = char_center.y - char_center.y;
+					if ( ( distanceX*distanceX + distanceY*distanceY ) <= MAGNET_RANGE )
+					{
+						var pickup:Pickup = _pickupController.pickups.splice( i, 1 )[0];
+						var tween:Tween = new Tween( pickup, 0.1, 'linear' );
+						tween.animate( 'x', _character.x );
+						tween.animate( 'y', _character.y );
+						tween.onComplete = recycleMagnetPickup;
+						tween.onCompleteArgs = [ pickup ];
+						Starling.juggler.add( tween );
+					}
+				}
+				else if ( pickup_bounds.intersects( char_bounds ) )
+				{
+					if ( _pickupController.pickups[i].type == Pickup.KEG_MAGNET )
+					{
+						CharacterModel.instance.state = CharacterModel.MAGNET;
+					}
+					recyclePickup( i );
 				}
 			}
+		}
+		
+		protected function recycleMagnetPickup( pickup:Pickup ):void
+		{
+			CharacterModel.instance.beer += pickup.beer;
+			var pickup_sound:SoundEvent = new SoundEvent( SoundEvent.FIRE_SOUND );
+			pickup_sound.id = SoundController.PICKUP;
+			_soundController.dispatchEvent( pickup_sound );
+			
+			_pickupController.removeChild( pickup );
+			pickup.type = _pickupController.getNewTypeFromFamily( pickup.family );
+			_pickupController.add( pickup );
+		}
+		
+		protected function recyclePickup( index:int ):void
+		{
+			CharacterModel.instance.beer += _pickupController.pickups[index].beer;
+			_pickupController.recycle( index );
+			var pickup_sound:SoundEvent = new SoundEvent( SoundEvent.FIRE_SOUND );
+			pickup_sound.id = SoundController.PICKUP;
+			_soundController.dispatchEvent( pickup_sound );
 		}
 		
 		protected function handleKeyboardUp( e:KeyboardEvent ):void

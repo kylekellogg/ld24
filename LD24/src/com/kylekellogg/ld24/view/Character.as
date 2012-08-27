@@ -1,13 +1,13 @@
 package com.kylekellogg.ld24.view
 {
-	import com.kylekellogg.ld24.controller.SoundController;
 	import com.kylekellogg.ld24.events.CharacterEvent;
-	import com.kylekellogg.ld24.events.SoundEvent;
 	import com.kylekellogg.ld24.model.Assets;
 	import com.kylekellogg.ld24.model.CharacterModel;
 	
+	import flash.events.TimerEvent;
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
+	import flash.utils.Timer;
 	
 	import starling.display.Image;
 	import starling.display.Sprite;
@@ -43,6 +43,8 @@ package com.kylekellogg.ld24.view
 		private var hasEvolved:Boolean = false;
 		private var gunOffsetY:Number = 40;
 		
+		protected var _magnetTimer:Timer;
+		
 		public function Character()
 		{
 			super();
@@ -54,6 +56,9 @@ package com.kylekellogg.ld24.view
 			offsets[CharacterModel.STANDARD] = offsets['standard'] = STANDARD_OFFSET;
 			offsets[CharacterModel.DELUXE] = offsets['deluxe'] = DELUXE_OFFSET;
 			
+			_magnetTimer = new Timer( 10000, 0 );
+			_magnetTimer.addEventListener( TimerEvent.TIMER, handleMagnetTimer );
+			
 			setNewCharacterStates(COOLER_OPEN, COOLER_CLOSED);
 			addEventListener(Event.ADDED_TO_STAGE, handleAddedToStage);
 		}
@@ -63,11 +68,27 @@ package com.kylekellogg.ld24.view
 			removeEventListener(Event.ADDED_TO_STAGE, handleAddedToStage);
 			addEventListener(Event.ENTER_FRAME, handleEnterFrame);
 			addEventListener(CharacterEvent.LEVEL_CHANGED, handleLevelChange);
+			addEventListener(CharacterEvent.STATE_CHANGED, handleStateChange);
 			
 			MAX_JUMP_HEIGHT = stage.stageHeight - (this.height * 2.5)
 			var gunx:Number = (this.x + (this.width >> 1)) + 20;
 			var guny:Number = (this.y + (this.height >> 1)) - 20;
 			gun = new Point(x, y);
+		}
+		
+		protected function handleStateChange( e:CharacterEvent ):void
+		{
+			if ( CharacterModel.instance.state == CharacterModel.MAGNET )
+			{
+				_magnetTimer.reset();
+				_magnetTimer.start();
+			}
+		}
+		
+		protected function handleMagnetTimer(event:TimerEvent):void
+		{
+			_magnetTimer.reset();
+			CharacterModel.instance.state = CharacterModel.DEFAULT;
 		}
 		
 		protected function handleLevelChange( e:CharacterEvent ):void

@@ -48,9 +48,15 @@ package com.kylekellogg.ld24.controller
 		{
 			var pickup:Pickup = _pickups.splice( index, 1 )[0];
 			removeChild( pickup );
+			var type:int = getNewTypeFromFamily( pickup.family );
+			addPickups( 1, type );
+		}
+		
+		public function getNewTypeFromFamily( family:int ):int
+		{
 			var type:int = Pickup.CAN;
 			var random:Number = Math.random();
-			switch ( pickup.family )
+			switch ( family )
 			{
 				case Pickup.FAMILY_CANS:
 					break;
@@ -64,7 +70,7 @@ package com.kylekellogg.ld24.controller
 					type = random > 0.33 ? random > 0.66 ? Pickup.KEG_MAGNET : Pickup.KEG_HEALTH : Pickup.KEG_FIRERATE;
 					break;
 			}
-			addPickups( 1, type );
+			return type;
 		}
 		
 		protected function addPickups( num:int, type:int ):void
@@ -75,7 +81,7 @@ package com.kylekellogg.ld24.controller
 			}
 		}
 		
-		protected function add( pickup:Pickup ):void
+		public function add( pickup:Pickup ):void
 		{
 			if ( _pickups.length )
 				pickup.x = _pickups[ _pickups.length - 1 ].x + _pickups[ _pickups.length - 1 ].width + Math.floor( Math.random() * 400 + 400 );
