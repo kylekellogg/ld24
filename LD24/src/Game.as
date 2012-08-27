@@ -29,7 +29,6 @@ package
 		public static const FLOOR_HEIGHT:int = 50;
 		
 		protected var _backgroundController:BackgroundController;
-		protected var _platformController:PlatformController;
 		protected var _pickupController:PickupController;
 		protected var _soundController:SoundController;
 		protected var _enemyController:EnemyController;
@@ -53,16 +52,13 @@ package
 			_backgroundController = new BackgroundController();
 			addChild( _backgroundController );
 			
-			_platformController = new PlatformController();
-			addChild( _platformController );
-			
 			_weaponsController = new WeaponsController();
 			addChild( _weaponsController );
 			
 			_floor = new Floor();
 			addChild( _floor );
 			
-			_pickupController = new PickupController( _platformController );
+			_pickupController = new PickupController();
 			addChild( _pickupController );
 			
 			_enemyController = new EnemyController();

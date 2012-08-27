@@ -1,5 +1,6 @@
 package com.kylekellogg.ld24.controller
 {
+	import com.kylekellogg.ld24.model.CharacterModel;
 	import com.kylekellogg.ld24.view.Pickup;
 	import com.kylekellogg.ld24.view.Platform;
 	
@@ -7,15 +8,12 @@ package com.kylekellogg.ld24.controller
 
 	public class PickupController extends Controller
 	{
-		protected var _platformController:PlatformController;
-		protected var _platforms:Vector.<Platform>;
 		protected var _pickups:Vector.<Pickup>;
 		protected var _canOffset:int = 5;
 		
-		public function PickupController( platformController:PlatformController )
+		public function PickupController()
 		{
 			super();
-			_platformController = platformController;
 			_pickups = new Vector.<Pickup>();
 		}
 		
@@ -71,37 +69,21 @@ package com.kylekellogg.ld24.controller
 		
 		protected function addPickups( num:int, type:int ):void
 		{
-			var lastPos:int = 0;
 			for ( var i:int = 0; i < num; i++ )
 			{
-				var pickup:Pickup = new Pickup( type );
-				lastPos = addToPlatform( pickup, lastPos );
+				add( new Pickup( type ) );
 			}
 		}
 		
-		protected function addToPlatform( pickup:Pickup, from:uint = 0 ):int
+		protected function add( pickup:Pickup ):void
 		{
-			_platforms = _platformController.platforms;
-			var random:Number = Math.floor( Math.random() * _platforms.length + from );
-			var n:int = 0;
-			for ( var i:int = random, l:int = random + _platforms.length; i < l; i++ )
-			{
-				n = i;
-				if ( i >= _platforms.length )
-					n -= _platforms.length;
-				
-				if ( !_platforms[n].hasPickup && _platforms[n].x >= stage.stageWidth )
-				{
-					_platforms[n].hasPickup = true;
-					_pickups.push( pickup );
-					var platformWidthMinusPickupWidth:Number = _platforms[n].width - pickup.width
-					pickup.x = _platforms[n].x + ((Math.random() * platformWidthMinusPickupWidth + pickup.width) - pickup.width);
-					pickup.y = (pickup.family == Pickup.FAMILY_CANS ? stage.stageHeight - Game.FLOOR_HEIGHT + _canOffset : _platforms[n].y) - pickup.height;
-					addChild( pickup );
-					return n;
-				}
-			}
-			return 0;
+			if ( _pickups.length )
+				pickup.x = _pickups[ _pickups.length - 1 ].x + _pickups[ _pickups.length - 1 ].width + Math.floor( Math.random() * 400 + 400 );
+			else
+				pickup.x = stage.stageWidth + pickup.width + Math.floor( Math.random() * 400 + 400 );
+			pickup.y = stage.stageHeight - (Math.random() * (CharacterModel.instance.character.height >> 1) + (CharacterModel.instance.character.height * 2));
+			addChild( pickup );
+			_pickups.push( pickup );
 		}
 
 		public function get pickups():Vector.<Pickup>
