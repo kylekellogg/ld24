@@ -1,5 +1,6 @@
 package com.kylekellogg.ld24.model
 {
+	import com.kylekellogg.ld24.controller.BackgroundController;
 	import com.kylekellogg.ld24.events.CharacterEvent;
 	import com.kylekellogg.ld24.view.Character;
 	
@@ -21,6 +22,7 @@ package com.kylekellogg.ld24.model
 		public static const DELUXE:int = 3;
 		
 		public var character:Character;
+		public var backgroundController:BackgroundController;
 		
 		protected var _beer:Number = 0;
 		protected var _level:int = CharacterModel.COOLER;
@@ -54,6 +56,9 @@ package com.kylekellogg.ld24.model
 			{
 				dispatchEvent( evt );
 			}
+			
+			if ( backgroundController )
+				backgroundController.dispatchEvent( evt );
 		}
 
 		public function get state():int

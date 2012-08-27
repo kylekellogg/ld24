@@ -21,6 +21,18 @@ package com.kylekellogg.ld24.model.background
 			var background:Background = new Background();
 			background.image = bmp;
 			backgrounds.push( background );
+			
+			current.push( background );
+		}
+		
+		public function clone():BackgroundCollectionModel
+		{
+			var backgroundCollectionModel:BackgroundCollectionModel = new BackgroundCollectionModel();
+			for ( var i:int = 0, l:int = backgrounds.length; i < l; i++ )
+			{
+				backgroundCollectionModel.add( backgrounds[i].image );
+			}
+			return backgroundCollectionModel;
 		}
 		
 		public function randomize():void

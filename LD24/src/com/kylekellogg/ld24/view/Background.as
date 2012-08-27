@@ -9,6 +9,8 @@ package com.kylekellogg.ld24.view
 	{
 		public var flaggedForDisposal:Boolean = false;
 		
+		protected var _image:Bitmap;
+		
 		public function Background()
 		{
 			super();
@@ -17,7 +19,12 @@ package com.kylekellogg.ld24.view
 		public function set image( bmp:Bitmap ):void
 		{
 			removeChildren();
-			addChild( Image.fromBitmap( bmp ) );
+			_image = bmp;
+			addChild( Image.fromBitmap( _image ) );
+		}
+		public function get image():Bitmap
+		{
+			return _image;
 		}
 	}
 }

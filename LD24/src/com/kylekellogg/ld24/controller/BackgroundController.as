@@ -1,8 +1,12 @@
 package com.kylekellogg.ld24.controller
 {
+	import com.kylekellogg.ld24.events.CharacterEvent;
+	import com.kylekellogg.ld24.model.CharacterModel;
 	import com.kylekellogg.ld24.model.background.BackgroundCollectionModel;
 	import com.kylekellogg.ld24.model.background.BackgroundModel;
 	import com.kylekellogg.ld24.view.Background;
+	
+	import flash.utils.Dictionary;
 	
 	import starling.display.DisplayObjectContainer;
 	import starling.events.Event;
@@ -16,6 +20,10 @@ package com.kylekellogg.ld24.controller
 		{
 			super();
 			_model = new BackgroundModel();
+			
+			CharacterModel.instance.backgroundController = this;
+			
+			addEventListener( CharacterEvent.LEVEL_CHANGED, handleLevelChanged );
 		}
 		
 		override protected function handleAddedToStage( e:Event ):void
@@ -25,9 +33,6 @@ package com.kylekellogg.ld24.controller
 			//	Initialize backgrounds
 			_model.init();
 			
-			//	Mix them up?
-			_model.randomize();
-			
 			//	Set current
 			_current = new Vector.<Background>();
 			replace( _model.current[0] );
@@ -36,25 +41,52 @@ package com.kylekellogg.ld24.controller
 			addEventListener( Event.ENTER_FRAME, handleEnterFrame );
 		}
 		
+		protected function handleLevelChanged( e:CharacterEvent ):void
+		{
+			if ( CharacterModel.instance.level == CharacterModel.MINI )
+			{
+				_model.current = _model.collections.slice( 1 );
+			}
+			else
+			{
+				_model.current = _model.collections.slice();
+			}
+			replace( _model.current[0] );
+		}
+		
 		public function replace( collection:BackgroundCollectionModel ):void
 		{
 			var i:int = 0;
 			var oldLength:int = _current.length;
+			var n:int = int.MAX_VALUE;
 			
-			_current = _current.concat( collection.current );
+			for ( i = 0; i < oldLength; i++ ) 
+			{
+				if ( _current[i].x > stage.stageWidth )
+				{
+					n = i < n ? i : n;
+					removeChild( _current[i] );
+				}
+				else
+				{
+					_current[i].flaggedForDisposal = true;
+				}
+			}
+			
+			_current = _current.slice( 0, n );
+			oldLength = _current.length;
+			_current = _current.concat( collection.current.slice() );
 			
 			var length:int = _current.length;
 			
 			for ( i = 0; i < length; i++ )
 			{
-				if ( i < oldLength )
-					_current[i].flaggedForDisposal = true;
-				
 				if ( i > 0 )
 				{
 					_current[i].x = _current[i-1].x + _current[i-1].width;
 				}
-				addChild( _current[i] );
+				if ( !_current[i].flaggedForDisposal )
+					addChild( _current[i] );
 			}
 			
 		}
@@ -69,7 +101,7 @@ package com.kylekellogg.ld24.controller
 				{
 					if ( _current[i].flaggedForDisposal )
 					{
-						_current.splice( i, 1 );
+						removeChild( _current.splice( i, 1 )[0] );
 					}
 					else
 					{

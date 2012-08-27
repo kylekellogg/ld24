@@ -17,20 +17,32 @@ package com.kylekellogg.ld24.model
 		public static const instance:Assets = new Assets();
 		
 		[Embed(source='assets/bg_beach_1.png')]
-		protected var _BG1:Class;
-		public var bg1:Bitmap;
+		protected var _BG11:Class;
+		public var bg11:Bitmap;
 		
 		[Embed(source='assets/bg_beach_2.png')]
-		protected var _BG2:Class;
-		public var bg2:Bitmap;
+		protected var _BG12:Class;
+		public var bg12:Bitmap;
 		
 		[Embed(source='assets/bg_beach_3.png')]
-		protected var _BG3:Class;
-		public var bg3:Bitmap;
+		protected var _BG13:Class;
+		public var bg13:Bitmap;
 		
 		[Embed(source='assets/bg_beach_4.png')]
-		protected var _BG4:Class;
-		public var bg4:Bitmap;
+		protected var _BG14:Class;
+		public var bg14:Bitmap;
+		
+		[Embed(source='assets/bg_dorm_1.png')]
+		protected var _BG21:Class;
+		public var bg21:Bitmap;
+		
+		[Embed(source='assets/bg_dorm_2.png')]
+		protected var _BG22:Class;
+		public var bg22:Bitmap;
+		
+		[Embed(source='assets/bg_dorm_3.png')]
+		protected var _BG23:Class;
+		public var bg23:Bitmap;
 		
 		[Embed(source='assets/platform.png')]
 		protected var _Platform:Class;
@@ -69,10 +81,13 @@ package com.kylekellogg.ld24.model
 			if ( instance )
 				throw new Error( 'Assets already exists. Try grabbing it from Assets.instance.' );
 			
-			bg1 = new _BG1() as Bitmap;
-			bg2 = new _BG2() as Bitmap;
-			bg3 = new _BG3() as Bitmap;
-			bg4 = new _BG4() as Bitmap;
+			bg11 = new _BG11() as Bitmap;
+			bg12 = new _BG12() as Bitmap;
+			bg13 = new _BG13() as Bitmap;
+			bg14 = new _BG14() as Bitmap;
+			bg21 = new _BG21() as Bitmap;
+			bg22 = new _BG22() as Bitmap;
+			bg23 = new _BG23() as Bitmap;
 			
 			platform = new _Platform() as Bitmap;
 			

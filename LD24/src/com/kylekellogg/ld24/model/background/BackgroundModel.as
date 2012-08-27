@@ -5,7 +5,8 @@ package com.kylekellogg.ld24.model.background
 	public class BackgroundModel
 	{
 		public var collections:Vector.<BackgroundCollectionModel>;
-		public var current:Vector.<BackgroundCollectionModel>;
+		
+		protected var _current:Vector.<BackgroundCollectionModel>;
 		
 		public function BackgroundModel()
 		{
@@ -16,11 +17,19 @@ package com.kylekellogg.ld24.model.background
 		public function init():void
 		{
 			var col1:BackgroundCollectionModel = new BackgroundCollectionModel();
-			col1.add( Assets.instance.bg1 );
-			col1.add( Assets.instance.bg2 );
-			col1.add( Assets.instance.bg3 );
-			col1.add( Assets.instance.bg4 );
-			collections.push( col1 );
+			col1.add( Assets.instance.bg11 );
+			col1.add( Assets.instance.bg12 );
+			col1.add( Assets.instance.bg13 );
+			col1.add( Assets.instance.bg14 );
+			
+			var col2:BackgroundCollectionModel = new BackgroundCollectionModel();
+			col2.add( Assets.instance.bg21 );
+			col2.add( Assets.instance.bg22 );
+			col2.add( Assets.instance.bg23 );
+			
+			collections.push( col1, col2 );
+			
+			current = collections.slice( 0, 1 );
 		}
 		
 		public function randomize():void
@@ -33,5 +42,20 @@ package com.kylekellogg.ld24.model.background
 				current.push( cloned );
 			}
 		}
+
+		public function get current():Vector.<BackgroundCollectionModel>
+		{
+			return _current;
+		}
+
+		public function set current(value:Vector.<BackgroundCollectionModel>):void
+		{
+			_current = new Vector.<BackgroundCollectionModel>();
+			for ( var i:int = 0, l:int = value.length; i < l; i++ )
+			{
+				_current.push( value[i].clone() );
+			}
+		}
+
 	}
 }
