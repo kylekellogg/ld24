@@ -64,7 +64,7 @@ package com.kylekellogg.ld24.controller
 					type = random > 0.33 ? random > 0.66 ? Pickup.KEG_MAGNET : Pickup.KEG_HEALTH : Pickup.KEG_FIRERATE;
 					break;
 			}
-			addPickups( 1, pickup.type );
+			addPickups( 1, type );
 		}
 		
 		protected function addPickups( num:int, type:int ):void

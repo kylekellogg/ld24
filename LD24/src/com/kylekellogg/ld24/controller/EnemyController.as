@@ -36,7 +36,7 @@ package com.kylekellogg.ld24.controller
 			for ( var i:int = 0; i < num; i++ )
 			{
 				var enemy:Enemy = new Enemy( Assets.instance.textures( _prefixes[ Math.floor( Math.random() * _prefixes.length ) ] ) );
-				enemy.x = stage.stageWidth + enemy.width + Math.floor( Math.random() * 4000 );
+				enemy.x = (i > 0 ? _model.enemies[i-1].x + _model.enemies[i-1].width : stage.stageWidth) + enemy.width + Math.floor( Math.random() * 800 );
 				enemy.y = stage.stageHeight - enemy.height - Game.FLOOR_HEIGHT;
 				addChild( enemy );
 				_model.enemies.push( enemy );
@@ -45,7 +45,7 @@ package com.kylekellogg.ld24.controller
 		
 		public function kill( index:int ):void
 		{
-			_model.enemies[index].x = stage.stageWidth + _model.enemies[index].width + Math.floor( Math.random() * 4000 );
+			_model.enemies[index].x = _model.enemies[ _model.enemies.length - 1 ].x + _model.enemies[ _model.enemies.length - 1 ].width + _model.enemies[index].width + Math.floor( Math.random() * 800 );
 			_model.enemies.push( _model.enemies.splice( index, 1 )[0] );
 		}
 		
@@ -57,7 +57,7 @@ package com.kylekellogg.ld24.controller
 				_model.enemies[i].x -= speed;
 				if ( _model.enemies[i].x < -_model.enemies[i].width )
 				{
-					_model.enemies[i].x = stage.stageWidth + _model.enemies[i].width + Math.floor( Math.random() * 4000 );
+					_model.enemies[i].x = _model.enemies[ _model.enemies.length - 1 ].x + _model.enemies[ _model.enemies.length - 1 ].width + _model.enemies[i].width + Math.floor( Math.random() * 800 );
 					_model.enemies.push( _model.enemies.splice( i, 1 )[0] );
 				}
 			}

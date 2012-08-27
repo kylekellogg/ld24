@@ -37,7 +37,6 @@ package
 		protected var _floor:Floor;
 		protected var _character:Character;
 		protected var _beerLabel:TextField;
-		protected var _healthLabel:TextField;
 		
 		protected var debugging:Boolean = true;
 		private var _weaponsController:WeaponsController;
@@ -88,11 +87,6 @@ package
 			_beerLabel.x = 20;
 			addChild( _beerLabel );
 			
-			_healthLabel = new TextField(200, 50, "Health: " + CharacterModel.instance.health, "Helvetica", 24, 0, true);
-			_healthLabel.hAlign = HAlign.RIGHT;
-			_healthLabel.x = stage.stageWidth - _healthLabel.width - 20;
-			addChild( _healthLabel );
-			
 			_character = new Character();
 			_character.x = 25;
 			_character.y = (stage.stageHeight - _character.height) - Game.FLOOR_HEIGHT + _character.offsets[CharacterModel.instance.level];
@@ -106,12 +100,13 @@ package
 		protected function handleEnterFrame( e:Event ):void
 		{
 			_beerLabel.text = "Beer: " + CharacterModel.instance.beer;
-			_healthLabel.text = "Health: " + CharacterModel.instance.health;
 			
 			var char_bounds:Rectangle = _character.getBounds( this );
 			var bullet_bounds:Rectangle;
 			var enemy_bounds:Rectangle;
 			var pickup_bounds:Rectangle;
+			
+			var hurt_sound:SoundEvent;
 			
 			for ( var i:int = _enemyController.enemies.length - 1; i > -1; i-- )
 			{
@@ -119,10 +114,9 @@ package
 				
 				if ( enemy_bounds.intersects( char_bounds ) )
 				{
-					//	TODO: Hurt player
 					_enemyController.kill( i );
-					CharacterModel.instance.health -= 10;
-					var hurt_sound:SoundEvent = new SoundEvent( SoundEvent.FIRE_SOUND );
+					CharacterModel.instance.beer -= 10;
+					hurt_sound = new SoundEvent( SoundEvent.FIRE_SOUND );
 					hurt_sound.id = SoundController.HURT;
 					_soundController.dispatchEvent( hurt_sound );
 				}

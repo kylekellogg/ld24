@@ -27,7 +27,6 @@ package com.kylekellogg.ld24.model
 		protected var _beer:Number = 0;
 		protected var _level:int = CharacterModel.COOLER;
 		protected var _state:int = CharacterModel.DEFAULT;
-		protected var _health:int = 100;
 		
 		protected var _jumping:Boolean = false;;
 		protected var _landed:Boolean = true;
@@ -90,7 +89,7 @@ package com.kylekellogg.ld24.model
 		public function set beer(value:Number):void
 		{
 			var oldBeer:Number = _beer;
-			_beer = value;
+			_beer = Math.max(value, 0);
 			
 			if ( _beer >= 600 && this.level != CharacterModel.DELUXE )
 			{
@@ -172,17 +171,5 @@ package com.kylekellogg.ld24.model
 		{
 			_shooting = value;
 		}
-
-		public function get health():int
-		{
-			return _health;
-		}
-
-		public function set health(value:int):void
-		{
-			_health = value;
-		}
-
-
 	}
 }
