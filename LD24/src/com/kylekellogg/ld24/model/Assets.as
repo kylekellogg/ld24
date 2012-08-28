@@ -83,6 +83,10 @@ package com.kylekellogg.ld24.model
 		protected var _MainLoop:Class;
 		public var mainLoop:Sound;
 		
+		[Embed(source='assets/snd/menu_loop.mp3')]
+		protected var _MenuLoop:Class;
+		public var menuLoop:Sound;
+		
 		[Embed(source='assets/snd/jump.mp3')]
 		protected var _Jump:Class;
 		public var jump:Sound;
@@ -133,6 +137,7 @@ package com.kylekellogg.ld24.model
 			_atlas = new TextureAtlas( Texture.fromBitmap( new _Spritesheet() as Bitmap ), XML( new _SpritesheetData() ) );
 			
 			mainLoop = new _MainLoop() as Sound;
+			menuLoop = new _MenuLoop() as Sound;
 			jump = new _Jump() as Sound;
 			shootIce = new _ShootIce() as Sound;
 			mainLoopPrefix = new _MainLoopPrefix() as Sound;
@@ -142,6 +147,7 @@ package com.kylekellogg.ld24.model
 			
 			sounds = new Dictionary();
 			sounds[ SoundController.MAIN_LOOP ] = mainLoop;
+			sounds[ SoundController.MENU_LOOP ] = menuLoop;
 			sounds[ SoundController.JUMP ] = jump;
 			sounds[ SoundController.SHOOT_ICE ] = shootIce;
 			sounds[ SoundController.LOOP_PREFIX ] = mainLoopPrefix;

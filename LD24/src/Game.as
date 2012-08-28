@@ -55,12 +55,36 @@ package
 		public function Game()
 		{
 			super();
-			_currentState = GAME_STATE;
+			_currentState = MENU_STATE;
 			init();
 		}
 		
 		protected function init():void
 		{
+			_soundController = new SoundController();
+			addEventListener( SoundEvent.FIRE_SOUND, handleFireSound );
+			addEventListener( Event.ADDED_TO_STAGE, handleAddedToStage );
+		}
+		
+		private function menu_init():void
+		{
+			var menu:Image = Image.fromBitmap( Assets.instance.menuScreen );
+			menu.x = 0;
+			menu.y = 0;
+			addChild( menu );
+			
+			trace("here");
+			var evt:SoundEvent = new SoundEvent( SoundEvent.FIRE_SOUND );
+			evt.id = SoundController.MENU_LOOP;
+			_soundController.dispatchEvent( evt );
+		}
+		
+		private function game_init():void
+		{
+			_character = new Character();
+			_character.x = 25;
+			_character.y = (stage.stageHeight - _character.height) - Game.FLOOR_HEIGHT + _character.offsets[CharacterModel.instance.level];
+			
 			_backgroundController = new BackgroundController();
 			addChild( _backgroundController );
 			
@@ -73,35 +97,16 @@ package
 			_enemyController = new EnemyController();
 			addChild( _enemyController );
 			
-			_soundController = new SoundController();
-			//	Testing
-			var evt:SoundEvent = new SoundEvent( SoundEvent.FIRE_SOUND );
-			evt.id = SoundController.LOOP_PREFIX;
-			_soundController.dispatchEvent( evt );
-			
-			addEventListener( SoundEvent.FIRE_SOUND, handleFireSound );
-			addEventListener( Event.ADDED_TO_STAGE, handleAddedToStage );
-		}
-		
-		private function menu_init():void
-		{
-			var menu:Image = Image.fromBitmap( Assets.instance.menuScreen );
-			menu.x = 0;
-			menu.y = 0;
-			addChild( menu );
-		}
-		
-		private function game_init():void
-		{
 			_beerLabel = new TextField(200, 50, "Beer: " + CharacterModel.instance.beer, "Helvetica", 24, 0xff0000, true);
 			_beerLabel.hAlign = HAlign.LEFT;
 			_beerLabel.x = 20;
 			addChild( _beerLabel );
 			
-			_character = new Character();
-			_character.x = 25;
-			_character.y = (stage.stageHeight - _character.height) - Game.FLOOR_HEIGHT + _character.offsets[CharacterModel.instance.level];
 			addChild(_character);
+			
+			var evt:SoundEvent = new SoundEvent( SoundEvent.FIRE_SOUND );
+			evt.id = SoundController.LOOP_PREFIX;
+			_soundController.dispatchEvent( evt );
 			
 			stage.addEventListener( KeyboardEvent.KEY_DOWN, handleKeyboardDown);
 			stage.addEventListener( KeyboardEvent.KEY_UP, handleKeyboardUp);
@@ -134,6 +139,28 @@ package
 		}
 		
 		protected function handleEnterFrame( e:Event ):void
+		{
+			switch(_currentState)
+			{
+				case MENU_STATE:
+					menuEnterFrame();
+					break;
+				case GAME_STATE:
+					gameEnterFrame();
+					break;
+				case END_STATE:
+					endEnterFrame();
+					break;
+			}
+		}
+		
+		private function menuEnterFrame():void
+		{
+			// TODO Auto Generated method stub
+			
+		}
+		
+		private function gameEnterFrame():void
 		{
 			_beerLabel.text = "Beer: " + CharacterModel.instance.beer;
 			
@@ -205,6 +232,12 @@ package
 					recyclePickup( i );
 				}
 			}
+		}
+		
+		private function endEnterFrame():void
+		{
+			// TODO Auto Generated method stub
+			
 		}
 		
 		protected function recycleMagnetPickup( pickup:Pickup ):void

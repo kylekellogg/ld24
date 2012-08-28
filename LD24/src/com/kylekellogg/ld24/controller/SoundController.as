@@ -20,6 +20,7 @@ package com.kylekellogg.ld24.controller
 		public static var EXPLOSION:int = 4;
 		public static var PICKUP:int = 5;
 		public static var HURT:int = 6;
+		public static var MENU_LOOP:int = 7;
 		
 		public function SoundController()
 		{
@@ -43,6 +44,7 @@ package com.kylekellogg.ld24.controller
 				case SoundController.JUMP:
 					sound.play();
 					break;
+				case SoundController.MENU_LOOP:
 				case SoundController.MAIN_LOOP:
 					sound.play( 0, int.MAX_VALUE );
 					break;
