@@ -227,7 +227,10 @@ package
 				{
 					if ( _pickupController.pickups[i].type == Pickup.KEG_MAGNET )
 					{
-						CharacterModel.instance.state = CharacterModel.MAGNET;
+						if ( CharacterModel.instance.state != CharacterModel.MAGNET )
+						{
+							CharacterModel.instance.state = CharacterModel.MAGNET;
+						}
 					}
 					recyclePickup( i );
 				}
@@ -242,6 +245,11 @@ package
 		
 		protected function recycleMagnetPickup( pickup:Pickup ):void
 		{
+			if ( pickup.type == Pickup.KEG_MAGNET )
+			{
+				CharacterModel.instance.state = CharacterModel.MAGNET;
+			}
+			
 			CharacterModel.instance.beer += pickup.beer;
 			var pickup_sound:SoundEvent = new SoundEvent( SoundEvent.FIRE_SOUND );
 			pickup_sound.id = SoundController.PICKUP;
