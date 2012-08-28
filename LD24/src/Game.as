@@ -69,8 +69,7 @@ package
 			while(this.numChildren > 0) {
 				removeChildAt(0);
 			}
-			stage.addEventListener( KeyboardEvent.KEY_DOWN, handleKeyboardDown);
-			stage.addEventListener( KeyboardEvent.KEY_UP, handleKeyboardUp);
+			
 			switch(_currentState)
 			{
 				case MENU_STATE:
@@ -84,6 +83,8 @@ package
 					break;
 			}
 			
+			stage.addEventListener( KeyboardEvent.KEY_DOWN, handleKeyboardDown);
+			stage.addEventListener( KeyboardEvent.KEY_UP, handleKeyboardUp);
 		}
 		
 		private function menu_init():void
@@ -133,12 +134,36 @@ package
 			evt.id = SoundController.LOOP_PREFIX;
 			_soundController.dispatchEvent( evt );
 			
+//			_character.addEventListener( CharacterEvent.DIED, handleDead );
+		}
+		
+		protected function handleDead( e:CharacterEvent ):void
+		{
+			_character.removeEventListener( CharacterEvent.DIED, handleDead );
+			
+			
+			
+			_soundController.stop();
+			_currentState = END_STATE;
+			init();
 		}
 		
 		private function end_init():void
 		{
-			// TODO Auto Generated method stub
+			var menu:Image = Image.fromBitmap( Assets.instance.menuScreen );
+			menu.x = 0;
+			menu.y = 0;
+			addChild( menu );
 			
+			_startLabel = new TextField(400, 100,"You Scored " + CharacterModel.instance.beer + "! Press Spacebar to Try Again", "Helvetica", 42, 0xffffff, true);
+			_startLabel.hAlign = HAlign.LEFT;
+			_startLabel.x = 25;
+			_startLabel.y = stage.stageHeight - _startLabel.height - 10;
+			addChild( _startLabel );
+			
+			var evt:SoundEvent = new SoundEvent( SoundEvent.FIRE_SOUND );
+			evt.id = SoundController.MENU_LOOP;
+			_soundController.dispatchEvent( evt );
 		}
 		
 		protected function handleAddedToStage( e:Event ):void
@@ -159,7 +184,7 @@ package
 					gameEnterFrame();
 					break;
 				case END_STATE:
-					endEnterFrame();
+					menuEnterFrame();
 					break;
 			}
 		}
@@ -173,6 +198,9 @@ package
 		
 		private function gameEnterFrame():void
 		{
+			if ( _currentState != GAME_STATE )
+				return;
+			
 			_beerLabel.text = "Beer: " + CharacterModel.instance.beer;
 			
 			var char_bounds:Rectangle = _character.getBounds( this );
@@ -315,32 +343,30 @@ package
 					}
 					break;
 				case Keyboard.SPACE:
-					if ( CharacterModel.instance.state != CharacterModel.DOUBLE_FIRE_RATE )
-					{
-						CharacterModel.instance.shooting = !CharacterModel.instance.shooting;
-					}
-					else
-					{
-						CharacterModel.instance.shooting = true;
-					}
-					
-					if ( CharacterModel.instance.shooting )
-					{
-						evt.id = SoundController.SHOOT_ICE; 
-						_soundController.dispatchEvent( evt );
-						var cevt:CharacterEvent = new CharacterEvent( CharacterEvent.FIRE_BULLET );
-						_weaponsController.dispatchEvent( cevt );
-					}
-					if ( _currentState == MENU_STATE ) {
+					if ( _currentState == MENU_STATE || _currentState == END_STATE ) {
 						_soundController.stop();
 						_currentState = GAME_STATE;
 						init();
 					}
-					CharacterModel.instance.shooting = true;
-					evt.id = SoundController.SHOOT_ICE; 
-					_soundController.dispatchEvent( evt );
-					var cevt:CharacterEvent = new CharacterEvent( CharacterEvent.FIRE_BULLET );
-					_weaponsController.dispatchEvent( cevt );
+					else
+					{
+						if ( CharacterModel.instance.state != CharacterModel.DOUBLE_FIRE_RATE )
+						{
+							CharacterModel.instance.shooting = !CharacterModel.instance.shooting;
+						}
+						else
+						{
+							CharacterModel.instance.shooting = true;
+						}
+						
+						if ( CharacterModel.instance.shooting )
+						{
+							evt.id = SoundController.SHOOT_ICE; 
+							_soundController.dispatchEvent( evt );
+							var cevt:CharacterEvent = new CharacterEvent( CharacterEvent.FIRE_BULLET );
+							_weaponsController.dispatchEvent( cevt );
+						}
+					}
 					break;
 			}
 		}
