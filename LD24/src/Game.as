@@ -17,6 +17,7 @@ package
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.media.SoundCodec;
+	import flash.sampler.startSampling;
 	import flash.ui.Keyboard;
 	
 	import starling.animation.Tween;
@@ -52,19 +53,37 @@ package
 		private static const MENU_STATE:String = "MenuState";
 		private static const GAME_STATE:String = "GameState";
 		private static const END_STATE:String = "EndState";
+		private var _angle:Number = 0;
 		
 		public function Game()
 		{
 			super();
 			_currentState = MENU_STATE;
-			init();
+			_soundController = new SoundController();
+			addEventListener( SoundEvent.FIRE_SOUND, handleFireSound );
+			addEventListener( Event.ADDED_TO_STAGE, handleAddedToStage );
 		}
 		
 		protected function init():void
 		{
-			_soundController = new SoundController();
-			addEventListener( SoundEvent.FIRE_SOUND, handleFireSound );
-			addEventListener( Event.ADDED_TO_STAGE, handleAddedToStage );
+			while(this.numChildren > 0) {
+				removeChildAt(0);
+			}
+			stage.addEventListener( KeyboardEvent.KEY_DOWN, handleKeyboardDown);
+			stage.addEventListener( KeyboardEvent.KEY_UP, handleKeyboardUp);
+			switch(_currentState)
+			{
+				case MENU_STATE:
+					menu_init();
+					break;
+				case GAME_STATE:
+					game_init();
+					break;
+				case END_STATE:
+					end_init();
+					break;
+			}
+			
 		}
 		
 		private function menu_init():void
@@ -74,7 +93,10 @@ package
 			menu.y = 0;
 			addChild( menu );
 			
-			_startLabel = new TextField(200, 50, "Press Spacebar to Start Your Journey", "Helvetica", 48, 0xffffff, true);
+			_startLabel = new TextField(400, 100,"Press Spacebar to Start Your Journey", "Helvetica", 42, 0xffffff, true);
+			_startLabel.hAlign = HAlign.LEFT;
+			_startLabel.x = 25;
+			_startLabel.y = stage.stageHeight - _startLabel.height - 10;
 			addChild( _startLabel );
 			
 			var evt:SoundEvent = new SoundEvent( SoundEvent.FIRE_SOUND );
@@ -111,8 +133,6 @@ package
 			evt.id = SoundController.LOOP_PREFIX;
 			_soundController.dispatchEvent( evt );
 			
-			stage.addEventListener( KeyboardEvent.KEY_DOWN, handleKeyboardDown);
-			stage.addEventListener( KeyboardEvent.KEY_UP, handleKeyboardUp);
 		}
 		
 		private function end_init():void
@@ -124,20 +144,7 @@ package
 		protected function handleAddedToStage( e:Event ):void
 		{
 			removeEventListener( Event.ADDED_TO_STAGE, handleAddedToStage );
-			
-			switch(_currentState)
-			{
-				case MENU_STATE:
-					menu_init();
-					break;
-				case GAME_STATE:
-					game_init();
-					break;
-				case END_STATE:
-					end_init();
-					break;
-			}
-			
+			init();
 			addEventListener( Event.ENTER_FRAME, handleEnterFrame);
 		}
 		
@@ -159,6 +166,9 @@ package
 		
 		private function menuEnterFrame():void
 		{
+			var fadeSpeed:Number = 0.05;
+			_startLabel.alpha = Math.cos(_angle) + 1 * 0.5;
+			_angle += fadeSpeed;
 		}
 		
 		private function gameEnterFrame():void
@@ -300,6 +310,11 @@ package
 					}
 					break;
 				case Keyboard.SPACE:
+					if ( _currentState == MENU_STATE ) {
+						_soundController.stop();
+						_currentState = GAME_STATE;
+						init();
+					}
 					CharacterModel.instance.shooting = true;
 					evt.id = SoundController.SHOOT_ICE; 
 					_soundController.dispatchEvent( evt );

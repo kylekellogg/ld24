@@ -22,9 +22,13 @@ package com.kylekellogg.ld24.controller
 		public static var HURT:int = 6;
 		public static var MENU_LOOP:int = 7;
 		
+		protected var _active:Vector.<SoundChannel>;
+		
 		public function SoundController()
 		{
 			super();
+			
+			_active = new Vector.<SoundChannel>();
 			
 			addEventListener( SoundEvent.FIRE_SOUND, handleFireSound );
 		}
@@ -33,6 +37,7 @@ package com.kylekellogg.ld24.controller
 		{
 			//	Route & play sounds here
 			var sound:Sound = Assets.instance.sounds[ e.id ];
+			var throwaway:SoundChannel;
 			
 			//	Logic depending on id
 			switch ( e.id )
@@ -42,16 +47,28 @@ package com.kylekellogg.ld24.controller
 				case SoundController.SHOOT_ICE:
 				case SoundController.HURT:
 				case SoundController.JUMP:
-					sound.play();
+					throwaway = sound.play();
+					throwaway.addEventListener( flash.events.Event.SOUND_COMPLETE, handleRemove );
 					break;
 				case SoundController.MENU_LOOP:
 				case SoundController.MAIN_LOOP:
-					sound.play( 0, int.MAX_VALUE );
+					throwaway = sound.play( 0, int.MAX_VALUE );
+					throwaway.addEventListener( flash.events.Event.SOUND_COMPLETE, handleRemove );
 					break;
 				case SoundController.LOOP_PREFIX:
 					sound.addEventListener(flash.events.Event.COMPLETE, handlePrefixComplete);
-					var throwaway:SoundChannel = sound.play();
+					throwaway = sound.play();
 					throwaway.addEventListener( flash.events.Event.SOUND_COMPLETE, handlePrefixComplete );
+			}
+			
+			_active.push( throwaway );
+		}
+		
+		public function stop():void
+		{
+			for ( var i:int = _active.length - 1; i > -1; i-- )
+			{
+				_active.splice( i, 1 )[0].stop();
 			}
 		}
 		
@@ -60,6 +77,20 @@ package com.kylekellogg.ld24.controller
 			var evt:SoundEvent = new SoundEvent( SoundEvent.FIRE_SOUND );
 			evt.id = SoundController.MAIN_LOOP;
 			dispatchEvent( evt );
+		}
+		
+		protected function handleRemove( e:flash.events.Event ):void
+		{
+			var channel:SoundChannel = e.target as SoundChannel;
+			for ( var i:int = _active.length - 1; i > -1; i-- )
+			{
+				if ( channel == _active[i] )
+				{
+					channel.stop();
+					_active.splice( i, 1 );
+					return;
+				}
+			}
 		}
 	}
 }
