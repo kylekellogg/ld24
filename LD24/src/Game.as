@@ -238,10 +238,11 @@ package
 				{
 					if ( _pickupController.pickups[i].type == Pickup.KEG_MAGNET )
 					{
-						if ( CharacterModel.instance.state != CharacterModel.MAGNET )
-						{
-							CharacterModel.instance.state = CharacterModel.MAGNET;
-						}
+						CharacterModel.instance.state = CharacterModel.MAGNET;
+					}
+					else if ( _pickupController.pickups[i].type == Pickup.KEG_FIRERATE )
+					{
+						CharacterModel.instance.state = CharacterModel.DOUBLE_FIRE_RATE;
 					}
 					recyclePickup( i );
 				}
@@ -259,6 +260,10 @@ package
 			if ( pickup.type == Pickup.KEG_MAGNET )
 			{
 				CharacterModel.instance.state = CharacterModel.MAGNET;
+			}
+			else if ( pickup.type == Pickup.KEG_FIRERATE )
+			{
+				CharacterModel.instance.state = CharacterModel.DOUBLE_FIRE_RATE;
 			}
 			
 			CharacterModel.instance.beer += pickup.beer;
@@ -310,6 +315,22 @@ package
 					}
 					break;
 				case Keyboard.SPACE:
+					if ( CharacterModel.instance.state != CharacterModel.DOUBLE_FIRE_RATE )
+					{
+						CharacterModel.instance.shooting = !CharacterModel.instance.shooting;
+					}
+					else
+					{
+						CharacterModel.instance.shooting = true;
+					}
+					
+					if ( CharacterModel.instance.shooting )
+					{
+						evt.id = SoundController.SHOOT_ICE; 
+						_soundController.dispatchEvent( evt );
+						var cevt:CharacterEvent = new CharacterEvent( CharacterEvent.FIRE_BULLET );
+						_weaponsController.dispatchEvent( cevt );
+					}
 					if ( _currentState == MENU_STATE ) {
 						_soundController.stop();
 						_currentState = GAME_STATE;

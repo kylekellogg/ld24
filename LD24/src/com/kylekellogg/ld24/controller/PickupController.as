@@ -26,7 +26,7 @@ package com.kylekellogg.ld24.controller
 			addPickups( 1, Pickup.CAN );
 			addPickups( 1, bottleRandom > 0.33 ? bottleRandom > 0.66 ? Pickup.BOTTLE_AMERICAN : Pickup.BOTTLE_BAD : Pickup.BOTTLE_MEXICAN );
 			addPickups( 1, Pickup.SIXPACK );
-			addPickups( 1, Pickup.KEG_MAGNET );//kegRandom > 0.33 ? kegRandom > 0.66 ? Pickup.KEG_FIRERATE : Pickup.KEG_HEALTH : Pickup.KEG_MAGNET );
+			addPickups( 1, kegRandom > 0.33 ? kegRandom > 0.66 ? Pickup.KEG_FIRERATE : Pickup.KEG_HEALTH : Pickup.KEG_MAGNET );
 			
 			addEventListener( Event.ENTER_FRAME, handleEnterFrame );
 		}
@@ -67,8 +67,7 @@ package com.kylekellogg.ld24.controller
 					type = Pickup.SIXPACK
 					break;
 				case Pickup.FAMILY_KEG:
-//					type = random > 0.33 ? random > 0.66 ? Pickup.KEG_MAGNET : Pickup.KEG_HEALTH : Pickup.KEG_FIRERATE;
-					type = Pickup.KEG_MAGNET;
+					type = random > 0.33 ? random > 0.66 ? Pickup.KEG_MAGNET : Pickup.KEG_HEALTH : Pickup.KEG_FIRERATE;
 					break;
 			}
 			return type;
