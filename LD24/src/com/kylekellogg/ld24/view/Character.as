@@ -44,6 +44,7 @@ package com.kylekellogg.ld24.view
 		private var gunOffsetY:Number = 40;
 		
 		protected var _magnetTimer:Timer;
+		protected var _firerateTimer:Timer;
 		
 		public function Character()
 		{
@@ -58,6 +59,9 @@ package com.kylekellogg.ld24.view
 			
 			_magnetTimer = new Timer( 10000, 0 );
 			_magnetTimer.addEventListener( TimerEvent.TIMER, handleMagnetTimer );
+			
+			_firerateTimer = new Timer( 10000, 0 );
+			_firerateTimer.addEventListener( TimerEvent.TIMER, handleFirerateTimer );
 			
 			setNewCharacterStates(COOLER_OPEN, COOLER_CLOSED);
 			addEventListener(Event.ADDED_TO_STAGE, handleAddedToStage);
@@ -78,21 +82,27 @@ package com.kylekellogg.ld24.view
 		
 		protected function handleStateChange( e:CharacterEvent ):void
 		{
-			refreshState();
-		}
-		
-		public function refreshState():void
-		{
 			if ( CharacterModel.instance.state == CharacterModel.MAGNET )
 			{
 				_magnetTimer.reset();
 				_magnetTimer.start();
+			}
+			else if ( CharacterModel.instance.state == CharacterModel.DOUBLE_FIRE_RATE )
+			{
+				_firerateTimer.reset();
+				_firerateTimer.start();
 			}
 		}
 		
 		protected function handleMagnetTimer(event:TimerEvent):void
 		{
 			_magnetTimer.reset();
+			CharacterModel.instance.state = CharacterModel.DEFAULT;
+		}
+		
+		protected function handleFirerateTimer(event:TimerEvent):void
+		{
+			_firerateTimer.reset();
 			CharacterModel.instance.state = CharacterModel.DEFAULT;
 		}
 		
