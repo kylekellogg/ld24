@@ -48,7 +48,7 @@ package
 		protected var _startLabel:TextField;
 		protected var _currentState:String;
 		
-		protected var debugging:Boolean = true;
+		protected var debugging:Boolean = false;
 		
 		private static const MENU_STATE:String = "MenuState";
 		private static const GAME_STATE:String = "GameState";
