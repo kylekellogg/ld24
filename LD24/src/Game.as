@@ -44,6 +44,7 @@ package
 		
 		protected var _character:Character;
 		protected var _beerLabel:TextField;
+		protected var _startLabel:TextField;
 		protected var _currentState:String;
 		
 		protected var debugging:Boolean = true;
@@ -73,7 +74,9 @@ package
 			menu.y = 0;
 			addChild( menu );
 			
-			trace("here");
+			_startLabel = new TextField(200, 50, "Press Spacebar to Start Your Journey", "Helvetica", 48, 0xffffff, true);
+			addChild( _startLabel );
+			
 			var evt:SoundEvent = new SoundEvent( SoundEvent.FIRE_SOUND );
 			evt.id = SoundController.MENU_LOOP;
 			_soundController.dispatchEvent( evt );
@@ -156,8 +159,6 @@ package
 		
 		private function menuEnterFrame():void
 		{
-			// TODO Auto Generated method stub
-			
 		}
 		
 		private function gameEnterFrame():void
